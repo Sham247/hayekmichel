@@ -4,3 +4,8 @@ mc_application/logs/
 .csv
 mc_system/monocledev_07122016
 .DS_Store
+mc_application/Provider_Master_20160727.csv
+mc_application/import_hospitalglobal.php
+mc_application/import_hospitalstar.php
+mc_application/import_provider_master_data.php
+
