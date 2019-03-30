@@ -1,0 +1,51 @@
+.HideSection{display:none !important;}
+.RedBorder{border:1px solid red !important;}
+a:hover{text-decoration:none;}
+.ClsError{color:#ff0000;}
+.ClsSuccess{color:#008000;}
+.fright{float:right !important;}
+.fleft{float:left !important;}
+.MarginRgt5px{margin-right:5px !important}
+.MarginRgt10px{margin-right:10px !important}
+.MarginBtm0px{margin-bottom:0px !important}
+.JValidationErr.error{font-weight: normal;margin:-5px 0 8px;}
+form .fieldError{border: 1px solid #ff0000 !important}
+form textarea{margin-bottom:1em;height:7em;resize:none;}
+form select{padding:3px;}
+.monocle_icons{background-image: url("../images/glyphicons.png");background-position: 14px 14px;background-repeat: no-repeat;display: inline-block;height: 14px;line-height: 14px;margin-top: 1px;vertical-align: text-top;width: 14px;margin-right: 5px;}
+.monocle_icons.img_list{background-position: -360px -48px;}
+.monocle_icons.img_report{background-position: -408px -120px;width:16px;}
+.monocle_icons.img_mail{background-position:-72px 0}
+.monocle_icons.img_settings{background-position:-432px 0}
+.monocle_icons.img_edit{background-position:0 -72px}
+.monocle_icons.img_delete{background-position:-456px 0}
+.monocle_icons.img_search{background-position: -48px 0}
+.nav_tab_content{padding: 10px; border: 1px solid #dddddd;border-top:none;border-radius:0 4px 4px}
+.nav_tab_content .tab_row_container{border: 1px solid #dddddd;padding: 1px;}
+.nav_tab_content .tab_row_container .nav_row_head{background-color: #dddddd;color: #000000;font-size: 14px;font-weight: bold;margin: 0 ;padding: 10px 0;}
+.nav_row_head_filter{border: 1px solid #dddddd;padding: 1px;border-bottom:none}
+.nav_row_head_filter h5{background-color: #dddddd;color: #000000;font-weight: bold;margin: 0 ;padding:10px 0 10px 10px;}
+.nav_tab_content .tab_row_container .nav_row_content{color: #000000;font-size: 12px;margin: 0;padding: 10px 0;}
+.nav_tab_content .tab_row_container .nav_row_content:nth-child(even){background-color:#f2f2f2}
+.nav_tab_content .tab_row_container .nav_row_content:nth-child(odd){background-color:#ffffff}
+.nav_tab_content .tab_row_container .row_field{padding:0 15px;}
+.BtnGraySmall{background: linear-gradient(to bottom, #ffffff, #f2f2f2) repeat scroll 0 0 rgba(0, 0, 0, 0);border: 1px solid #d4d4d4;color: #000000;padding: 8px 10px;border-radius:4px;}
+.BtnGraySmall:hover,.BtnGraySmall:focus{color:#000000;}
+.nav_tab_content .row_content_header{margin-bottom:10px}
+.NoRecordsMsg{text-align: center; padding: 40px 0px;}
+.BorderNone{border:none !important}
+#back-to-top{display:none}
+.txt_center{text-align:center;}
+.ShowPagination{margin:30px 0 20px !important;}
+.ShowPagination strong{border: 1px solid #dddddd;color: #000000;font-weight: bold;padding:3px 9px;}
+.ShowPagination a.ActivePagingLink{border: 1px solid #dddddd;padding:3px 9px;}
+.ShowPagination a.DisabledLink{border: 1px solid #dddddd;padding:3px 9px;cursor:default;background-color:#dddddd;color:rgba(131, 125, 125, 0.75);}
+.ClrExpired{color:red}
+.ClrActive{color: green}
+.ClrInActive{color:orange}
+/* Common css for pc - created by Karthik K on 18 Nov, 2014 */
+@media screen and (min-width:767px)
+{
+	.PcPaddingRgt0Px{padding-right:0px !important}
+	.PcMarginBtm10px{margin-bottom:10px !important}
+}

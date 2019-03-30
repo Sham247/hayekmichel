@@ -1,0 +1,6 @@
+mc_application/config/database.php
+mc_application/logs/
+.sql
+.csv
+mc_system/monocledev_07122016
+.DS_Store

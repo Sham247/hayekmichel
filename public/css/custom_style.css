@@ -1,0 +1,431 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(fonts/OpenSans.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(fonts/OpenSans-Bold.woff) format('woff');
+}
+/*@media print {
+  body * {
+    visibility: hidden;
+  }
+  #final_compare_report, #final_compare_report * {
+    visibility: visible;
+  }
+  #final_compare_report {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+@page
+{
+size: landscape;
+margin: 2cm;
+}*/
+@media print 
+{
+    #final_report_doc{page-break-inside:avoid;page-break-after:auto;width:25%;padding:4px !important;}
+    .post{border:none !important;}
+    #report_button_grp{display: none;}
+}
+/*@media all {
+  .page-break { display: none; }
+}
+@media print {
+  .page-break { display: block; page-break-before: always; }
+}*/
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px; /* half width of the spinner gif */
+    margin-top: -50px; /* half height of the spinner gif */
+    text-align:center;
+    z-index:1234;
+    overflow: auto;
+    width: 100px; /* width of the spinner gif */
+    height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
+}
+#phBreadCrumb_chkCond td div {
+float: left;
+margin-right: 5px;
+}
+input[type='text'].invalid, textarea.invalid, select.invalid {
+    border-color: red;
+}
+div#fadeandscale_wrapper {
+margin-left: 10%;
+margin-top: 7%;
+}
+div#fadeandscale1_wrapper {
+margin-left: 10%;
+margin-top: 3%;
+}
+div.popup_wrapper{margin:4% 0 1% 13%;width:75%;}
+div.popup_wrapper .well.columns.popup_content{margin-bottom: 0px !important;width:100% !important;}
+.bullet-item.address
+{
+  line-height: 19px;
+  height: 97px;
+}
+.float_left
+{
+  float: left;
+}
+.float_right
+{
+  float:right;
+}
+.color_red
+{
+  color: red;
+}
+.panel span.float_left
+{
+  margin-top: 5% !important;
+}
+.compare.panel .float_left
+{
+  margin-top: -4% !important;
+}
+.compare.panel .panel_right h4
+{
+  line-height: 20px;
+}
+.panel .panel_right
+{
+  margin-left: 27%;
+}
+.bullet-item.languages {
+line-height: 19px;
+height: 75px;
+}
+.colorred
+{
+  color: red;
+}
+#compare_list div.large-3.columns.clear_list, #final_report_doc
+{
+float: left;
+}
+.more_doc
+{
+  /*display: none;*/
+}
+#more_doc
+{
+  float: right;margin:10px 0 0 0;
+}
+#error-login
+{
+  padding-top: 2%;
+  margin-left: 12%;
+}
+#accordion .large-6 span
+{
+  float: left;
+  margin-right: 7px;
+}
+#accordion .large-6 label
+{
+  max-width: 90%;
+  text-transform:capitalize;
+}
+#accordion .large-6 
+{
+  line-height: 20px;
+}
+#email_com_des
+{
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 20px 0 0 70px;
+  float: right;
+  margin-bottom: 2%;
+}
+/*#email_success span
+{
+  color: green;
+}*/
+#email_status
+{
+  margin-bottom: 2%;
+}
+.hos_star img 
+{
+   width: 60px;
+  padding: 5px 0;
+}
+.hos_star
+{
+  height: 65px;
+}
+.clear_list .panel.callout
+{
+  clear: both;
+    float: left;
+    height: 95px;
+    width: 100%;
+}
+#disable_doc_reports
+{
+  color: white;
+}
+/*.hosp_icon
+{
+  background: url(images/demo/shortcodes/hospital_clinic.png);
+  background-repeat: no-repeat;
+}*/
+.pricing-table .price
+{
+  height: 100px;
+}
+
+.nivo-directionNav
+{
+  display: none;
+}
+
+#total_doc_list .pricing-table .title
+{
+  height: 50px;
+}
+.clear_both{clear:both;}
+.margin0px{margin:0px !important;}
+#search_doc_cond{display:none;}
+li.compare_map{overflow:hidden}
+.compare_map iframe {width: 100%;}
+table tr th, table tr td{vertical-align: top;}
+input[type='checkbox'],input[type='radio']{cursor:pointer;}
+.remove_added_list{position: absolute; right:-7px; padding: 0px; top: -20px; color: rgb(0, 0, 0);}
+.remove_added_list:active,.remove_added_list:focus,.remove_added_list:hover{color:rgb(0,0,0);text-decoration:none;}
+.pos_rel{position:relative}
+#total_doc_list,#show_doc_comp_list,#email_onclick,.compare_list_container{display: none;}
+form#frm_quick_search{margin: 0px;}
+.top-bar-section li a:not(.button) {text-transform:uppercase }
+.quick_search_crtl button.btn_quick_search{color:#ffffff;}
+.post_img{margin-bottom: 10px !important;text-align: center;}
+.ui-autocomplete{max-height:290px;overflow:auto;overflow-x:hidden;z-index: 9999}
+.ui-autocomplete-category,.ui-autocomplete-category:HOVER{margin:3px 0;font-weight:bold !important;font-size:14px;padding:0 5px;}
+.ui-menu .ui-menu-item{font-size:11px;padding-left:10px;}
+label.quick_search_lbl{position:absolute;top:-16px;}
+h3.search_doc_cond_title{width:80%;float:left;}
+h3.inner_doc_category{float:left;width:100%;margin:5px 0 0 0 !important;}
+select.list_sort_by{width: auto; margin:0px 0px 0px; float: right;}
+.doc_sort_loading{position: absolute; width: 100%; background-color: gray; height: 100%; z-index: 1; opacity: 0.6; text-align: center;}
+.doc_sort_loading img#img-spinner{margin-top:10%;}
+.popup_wrapper .popup_content_visible .title-block h3{padding:5px 0 5px 5px;}
+.title-block h3{margin:0px;}
+#frm_quick_search select,#frm_quick_search input[type='text']{box-shadow: 1px 3px 3px rgb(218, 218, 218); color: #000;}
+#frm_quick_search select{padding:3px;}
+.compare_doc_content{display:none}
+.marginRight10px{margin-right:10px}
+.popup_wrapper table tr td:first-child{width:210px;}
+.popup_wrapper table tr td:last-child div {margin-bottom: 5px;}
+#search_doc_cond.condition_category_list .first_category_bg{background-color:#5CD6FF;background-image:none}
+#search_doc_cond.condition_category_list .first_category_content{background-color:#CEF3FF;background-image:none}
+#search_doc_cond.condition_category_list .second_category_bg{background-color:#FFCC7F;background-image:none}
+#search_doc_cond.condition_category_list .second_category_content{background-color:#FFF2DF;background-image:none}
+#search_doc_cond.condition_category_list .third_category_bg{background-color:#8DD18D;background-image:none}
+#search_doc_cond.condition_category_list .third_category_content{background-color:#E8F6E8;background-image:none}
+.doctor_display_list article.post{margin:0;padding:10px;border-radius: 5px;border:1px solid #e6e6e6;}
+.doctor_display_list article.post.cond_bg{background-color:#CEF3FF;padding:10px;border-radius: 5px;border:1px solid #5CD6FF;}
+.doctor_display_list article.post.scond_bg{background-color:#FFF2DF;padding:10px;border-radius: 5px;border:1px solid #FFCC7F;}
+.doctor_display_list article.post.sscond_bg{background-color:#E8F6E8;padding:10px;border-radius: 5px;border:1px solid #8DD18D;}
+.doctor_display_list article.post ul.pricing-table{margin:0;position: relative}
+#doctor_list .large-3.columns.doctor_display_list{padding: 5px;float:left;margin-bottom:8px;}
+form.form-horizontal{padding: 20px; border: 1px solid #dddddd;margin-bottom:20px;border-top:none;border-radius:0 4px 4px}
+ul.nav.nav-tabs{border-radius:4px}
+.alert.alert-danger,.alert.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+}
+.alert.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+}
+.alert {
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    border-radius: 4px;
+    color: #c09853;
+    /*margin-bottom: 0px;
+    margin-top:20px;*/
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.header-wrapper{background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(242, 242, 242)); background-color: rgb(250, 250, 250);border:1px solid #d4d4d4;border-width:0 0 1px;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1)}
+/*.main-wrapper header.main-navigappointment-block .large-3:first-child{padding:0px}*/
+.signup-link{text-transform:none !important;}
+.frm_login,.FrmForgotPass,.FrmResetPassword{margin-top: 40px;margin-bottom:30px}
+.FrmForgotPass{display: none;}
+.frm_login h4,.FrmForgotPass h4,.FrmResetPassword h4{padding-bottom: 1%; font-size: 17.5px;color:#000;font-family: inherit;font-weight: bold;line-height: 20px;margin:15px 0;text-rendering: optimizelegibility;}
+.frm_login div.login_fields,.FrmForgotPass div.login_fields,.FrmResetPassword  div.login_fields{margin-bottom:5px ;}
+form.frm_login.normal-label label.login-label,.FrmForgotPass.normal-label label.login-label,.FrmResetPassword.normal-label label.login-label {margin-bottom: 10px;/*color:#999999;*/color:#000000;font-weight:normal}
+.register_disable{padding: 15px; margin: 40px 20px;}
+.page-dashboard div.row:first-child section.panel-default {margin-top: 20px;}
+label.align_chk{margin:5px 0 0 20px;}
+label.align_chk input[type='checkbox']{margin: -1px 0px 0px -20px;}
+#display_dashboard .panel-body div.legend table {right: 0px !important;background-color:#ffffff}
+#display_dashboard .panel-body div.legend div:first-child{background-color:transparent !important}
+#display_dashboard section.panel-default,div.panel-default{padding:0px !important;}
+body#app {position: relative;padding-top: 0px;padding-bottom: 0px;}
+/*.panel-body.view_chart_second,.panel-body.view_chart_third,.panel-body.view_chart_fourth,.panel-body.view_chart_five{opacity:0;}*/
+#display_dashboard .chart_title,#display_dashboard .chart_title:visited{color: #000000;text-decoration: none !important;}
+#display_dashboard .dashboard_content{padding:40px 0;text-align: center}
+.frm_login p.signup{font-size: 12px;margin-bottom: 40px;margin-top: 25px;text-align: center;}
+span.forgot a#forgotlink{float:right;font-size:11px;}
+label.remember input[type='checkbox']{float:left;}
+label.remember span.remember_span{float:left;margin:5px 0 0 5px;}
+.display_page_content{margin-top: 20px; margin-bottom: 20px;}
+.row_content_header .BtnAddUser,.row_content_header .BtnAddUserLevel{float: left;}
+.SearchAddedUser,.SearchAddedLevel{background-color: rgb(238, 238, 238); border: 1px solid rgb(221, 221, 221); float: left; border-radius: 0px 4px 4px 0px; padding: 7px 0px 6px 5px;}
+form input[type='checkbox'].ChkUserStatus,form input[type='checkbox'].ChkLevelStatus{margin-bottom:1em;}
+form .LblChkUserStatus,form .LblChkLevelStatus{float:left !important;}
+.row_content_header .TxtSearchUser,.row_content_header .TxtSearchUserLevel{float: left;margin-bottom: 0;border-radius: 4px 0 0 4px;margin-left:10px;}
+.DynamicShowContent{display:none}
+.UserViewRestricted{text-align:center}
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    font-weight: normal;
+    width: 40%;
+}
+.ui-datepicker-month {
+    margin-right: 10px !important;
+}
+.FrmFilterUserList,.FrmFilterLevelList{border: 1px solid rgb(221, 221, 221); padding: 20px; margin: 0px 0px 10px;}
+#appointment-contact-form{display:none}
+.top-bar-section .has-dropdown{text-overflow:ellipsis;white-space:nowrap;}
+.UserMdlList:first-child {margin-top: 5px !important;}
+.UserMdlList{margin-bottom: 10px !important;}
+#search_doc_cond.well{background-color:#ebebeb;border-radius:0;padding-top:0px;border-top:none;box-shadow:none;margin-bottom:0px}
+#total_doc_list{margin-top:20px}
+.search_page_section{padding-top:0px !important;margin-top:20px}
+.search_page_section .red{border-radius:0 !important;padding: 10px 0 0 !important;}
+.SearchBoxBg{padding:0 !important;background-color: #fff;text-align:center}
+.SearchBoxBg .SearchMenuLink{float: left;color: #000;font-weight: bold;padding: 20px !important;width: 50%;}
+.SearchBoxBg .SearchMenuLink.ActiveLink {background:none repeat scroll 0 0 #ebebeb !important;}
+form#frm_quick_search {padding-top: 20px;}
+.quick_search_crtl button.btn_quick_search {margin: 2px 0 0;line-height:inherit !important}
+.BtnUserReports{padding:4px 10px !important}
+.ReportsDetails,.BarChartDetails {border: 1px solid #dddddd;border-radius: 3px;padding: 15px;}
+.ReportsDetails .ReportTitle,.BarChartDetails .BarChartTitle{margin:0;color:#000;font-weight:bold}
+.BarChartDetails .BarChartTopTitle{margin:0;color:#000;font-weight:bold;padding-bottom: 10px; border-bottom: 1px solid rgb(221, 221, 221); margin-bottom: 10px;}
+.ReportsDetails .ReportCount{margin:0;color:#000;font-weight:bold}
+.ReportsDetails .ReportText{color:#777777;}
+.RangeGraphContainer {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+#tooltip{width:auto}
+.RangeGraphContainer #ShowRangeGraph,#MostLoginGraph {
+    width: inherit;
+    height: inherit;
+}
+.BarGraphTitle{padding:10px;border-bottom:1px solid #ddd}
+.BarChartDetails ul.DisplayUsrList {list-style: outside none none;margin: 10px 0 0;}
+.BarChartDetails ul.DisplayUsrList li {border-top: 1px solid #ddd;padding: 5px 0;}
+.ProfileListContent{display:none;}
+form.ProfileListContent{display:block}
+.HosProfContainer{display:none;}
+.HospitalFullList table{width:100%;}
+.HospitalFullList table tr{border-bottom:1px solid #ddd}
+.HospitalFullList table tr th,.HospitalFullList table tr td{padding:10px !important}
+.HospitalFullList table tr th {font-size: 14px !important;}
+.HospitalFullList table tr th:nth-child(1),.HospitalFullList table tr td:nth-child(1){width:70%;border-right:1px solid #ddd}
+.HospitalFullList table tr th:nth-child(2),.HospitalFullList table tr td:nth-child(2){width:10%;border-right:1px solid #ddd;text-align:center}
+.HospitalFullList table tr th:nth-child(3),.HospitalFullList table tr td:nth-child(3){width:20%;border-right:1px solid #ddd;text-align:center}
+.hospital_profile_list,.HospitalFullList {margin-top: 15px;}
+#compare_list{height:111px;overflow: hidden}
+.MultipleStateList,.MultipleGroupList{border: 1px solid #dddddd;border-radius: 3px;max-height: 145px;overflow-x: hidden;overflow-y: auto;margin-bottom:5px}
+.MultipleStateList .InnerStateList,.MultipleGroupList .InnerGroupList{border-bottom: 1px solid #dddddd;clear: both;float: left;padding: 5px;width: 100%;}
+.MultipleStateList .InnerStateList:last-child,.MultipleGroupList .InnerGroupList:last-child{border-bottom:none}
+.MultipleStateList .InnerStateList .ChkGroupState,.MultipleGroupList .InnerGroupList .ChkMailToLevel{float: left;margin: 0;}
+.MultipleStateList .InnerStateList label,.MultipleGroupList .InnerGroupList label {float: left;margin: 1px 0 0 5px;}
+.ReportCategoryUl,.ReportSubCategoryUl{list-style:none;}
+.ReportCategoryUl .CategoryLink.ActiveLink,.ReportSubCategoryUl .SubCategoryLink.ActiveLink{font-weight:bold}
+.ReportCategoryUl li:first-child ul.ReportSubCategoryUl{display:block;}
+/*.ReportCategoryUl li:first-child ul.ReportSubCategoryUl */
+.ReportSubCategoryUl{display:none;}
+.ReportCategoryUl > li {border-bottom: 1px solid #ddd;padding: 5px;}
+.DisplayReportsContent{margin-top:60px;max-height:700px;overflow:auto;padding:0px !important;}
+.TblReportContainer{width: 100%;margin:0;}
+.TblReportContainer .TblReportMasTitle{padding:0px;text-align: center;border-bottom: 1px solid #ddd;}
+.TblReportContainer .TblReportMasTitle h4{font-weight:bold}
+.TblReportContainer .TblFieldHead{padding:10px;border-right: 1px solid #ddd;font-size:13px}
+.TblReportContainer .TblFieldVal {border-right: 1px solid #ddd;border-top: 1px solid #ddd;padding: 10px;}
+.TblReportContainer .TblReportEmpty{ padding: 60px;text-align: center;}
+.ReportSubCategoryUl > li{padding: 3px;border-bottom: 1px solid #ddd;}
+/*.DisplayReportsContent{overflow-x:auto;overflow-y:hidden }*/
+.ReportSubCategoryUl li:last-child{border-bottom:none}
+
+/* PC css starts here */
+@media screen and (min-width:767px)
+{
+  /*.SearchAddedUser,.SearchAddedLevel{padding: 7px 0px 6px 5px;}*/
+  .search_page_section .red{margin-bottom: 20px;}
+  form .LblChkUserStatus,form .LblChkLevelStatus{margin:-3px 0 0 5px !important;}
+  /*form#frm_quick_search{padding-top: 49px !important;}*/
+  nav.top-bar{padding-top:0px !important;margin-top:30px !important;height:auto;}
+  .quick_search_crtl{padding:0px !important;} 
+  .quick_search_crtl button.btn_quick_search{padding: 10px; line-height: 8px;}
+  .post_img > img{width:50%;}
+  #doctor_list .large-3.columns {height: 812px;}
+  #email_com_des .email_btn_container{float:left;padding:0px !important;}
+  #email_com_des .email_btn_container #compare_email_submit{float:left;}
+  .form-horizontal .control-label{float:right;font-size: 14px;font-weight: normal;}
+  .header-wrapper{position:relative;-webkit-animation: show_header 1s;animation: show_header 1s;}
+  .row_content_header .TxtSearchUser,.row_content_header .TxtSearchUserLevel{width: 160px}
+  .UserViewRestricted img{height:300px}
+  @-webkit-keyframes show_header{
+    from{top:-100px;}
+    to{top:0px;}
+  }
+  @keyframes show_header{
+    from{top:-100px;}
+    to{top:0px;}
+  }
+}
+.TxtUserSendEmail{margin:7px 0 10px !important;}
+/* PC css ends here */
+/* Mobile, Tablet css starts here */
+@media screen and (max-width:767px)
+{
+  .search_page_section .red{margin-bottom:0px;}
+    #RangeGraph{margin-top:30px;}
+    .ReportBtnCtrls{text-align:center}
+    .display_page_content{margin-top: 10px; margin-bottom: 10px;padding:0 10px;}
+    .UserViewRestricted h3{font-size:15px}
+    .UserViewRestricted img{height:150px}
+    .SearchAddedUser,.SearchAddedLevel{padding: 6px 0px 6px 5px;}
+    form .LblChkUserStatus,form .LblChkLevelStatus{margin:3px 0 0 5px !important;}
+    .row_content_header .TxtSearchUser,.row_content_header .TxtSearchUserLevel{width: 120px;}
+    .small_center{text-align:center !important;}
+    nav.top-bar{padding-top:0px !important;background-color:#FFFFFF !important}
+    .quick_search_crtl{margin-bottom:10px;} 
+    .quick_search_crtl button.btn_quick_search{width:100%;}
+    .post_img > img{width:30%;}
+    #compare_button .large-12.columns button,#compare_list_btns .large-12.columns button{display:inline;}
+    li.cta-button button.add_doc_compare{display:inline;}
+    a#logo{text-align:center;margin-bottom:15px;}
+    div.popup_wrapper .well.columns.popup_content{max-height:450px;overflow-y:scroll;overflow-x:hidden;}
+    div.popup_wrapper .well.columns.popup_content button.btn.btn-default{margin-bottom:20px;}
+    #email_com_des{padding:20px 5px 0;}
+    label.quick_search_lbl{position:relative;top:-4px;}
+    #frm_quick_search select{margin-bottom:1em;}
+    .form-horizontal .control-label{float:left;font-size: 14px;font-weight: normal;}
+    .copyright p {line-height:initial;text-align:center;}
+    #appointment-contact-form{padding-top:20px}
+}
+@media screen and (min-width:497px)
+{
+  .SearchAddedUser,.SearchAddedLevel{padding: 7px 0px 6px 5px !important;}
+}
