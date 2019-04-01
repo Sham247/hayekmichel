@@ -253,8 +253,10 @@ if ( ! function_exists('get_config'))
 				}
 			}
 		}
-
-		return $_config[0] =& $config;
+		// Improved version php 7.2 compatible.
+    $_config[0] =& $config;
+    return $_config[0];
+	//	return $_config[0] =& $config; // code was incompatible with php > 5.5
 	}
 }
 
