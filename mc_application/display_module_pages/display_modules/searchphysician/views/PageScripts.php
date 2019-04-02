@@ -6,6 +6,7 @@
 * Created date  : 19 Oct, 2014
 * Modified date : 19 Oct, 2014
 * Description 	: Page contains home page script details
+* !!!!! THIS IS THE PAGE TO EDIT TO GET CHANGES ON THE FRONT END... !!!!
 */
 $EncodedStateData	= '';
 if(isset($JsonStateData) && count($JsonStateData)>0)
@@ -1045,6 +1046,7 @@ $(function()
 					display_order_id	= doc_val.order_id;
 					doc_list_html += '<div class="large-3 columns doctor_display_list" data-quality="'+doc_val.quality+'"  data-efficiency="'+doc_val.efficiency+'"><article class="post col-2 '+display_bg_color+'">';
 					doc_list_html += '<div class="post_img"><img src="'+doc_val.image+'" alt="'+doc_val.name+'"></div>';
+					// alternate display only gender, no image... doc_list_html += '<div class = "post_img">'+doc_val.gender+'</div>';
 					doc_list_html += '<ul class="pricing-table"><li class="title">';
 					doc_list_html += '<a href="javascript:void(0);" class="view_doc_details" doc-id="'+doc_val.doc_npi+'" id="drill_'+doc_val.doc_npi+'">'+doc_val.name+doc_val.education+'</a></li>';
 					doc_list_html += '<li class="price">'+doc_val.primary+'</li>';
@@ -1067,7 +1069,8 @@ $(function()
 					doc_list_html += '<li class="bullet-item languages">Languages <br> '+doc_val.language+'</li>';
 					doc_list_html += '<li class="bullet-item">Quality <br> <img src="'+doc_val.quality_img+'"></li>';
 					doc_list_html += '<li class="bullet-item">Efficiency <br> <img src="'+doc_val.efficiency_img+'"></li>';
-					doc_list_html += '<li class="compare_map"><iframe width="235" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q='+doc_val.map_address+'&amp;output=embed"></iframe></li>';
+					// doc_list_html += '<li class="compare_map"><iframe width="235" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q='+doc_val.map_address+'&amp;output=embed"></iframe></li>';
+					doc_list_html += '<p style="display: block; margin: 15px auto; text-align: center; font-weight: bold;"><a href = "https://maps.google.it/maps?q='+doc_val.map_address+'" target="_blank">Driving Directions</a></p>';
 					doc_list_html += '<input type="hidden" name="docno" id="get_'+doc_val.doc_id+'" value="'+doc_val.doc_id+'">';
 					doc_list_html += '<input type="hidden" name="docname" id="get_name_'+doc_val.doc_id+'" value="'+doc_val.name+'">';
 					doc_list_html += '<input type="hidden" name="docgender" id="get_image_'+doc_val.doc_id+'" value="'+doc_val.gender+'"><li class="cta-button">';
