@@ -1,9 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 class Searchphysician extends MX_Controller 
 {
 	public function __construct()
 	{
+
 		parent::__construct();
 		// Check login session 
 		RedirectToLogin();
@@ -270,8 +272,8 @@ class Searchphysician extends MX_Controller
 			$GetSpecialty 		= (isset($_POST['specialtyname']) && trim($_POST['specialtyname']) != '')?$_POST['specialtyname']:'';
 			$GetSubSpecialty	= (isset($_POST['subspecialtyname']) && trim($_POST['subspecialtyname']) != '')?$_POST['subspecialtyname']:'';
 			$GetSsubSpecialty 	= (isset($_POST['proceduregroup']) && trim($_POST['proceduregroup']) != '')?$_POST['proceduregroup']:'';
-			$CarrierId			= (isset($_POST['carrier_id']) && trim(DecodeValue($_POST['carrier_id'])) != '')?$_POST['carrier_id']:'';
-			$CarrierId 			= '';
+      $CarrierId			= (isset($_POST['carrier_id']) && trim(DecodeValue($_POST['carrier_id'])) != '')?$_POST['carrier_id']:'';
+      $CarrierId = 0 + intval($_POST['carrier_id']);  // if no insurer at least have to have a zero...
 			$ListCount 			= 0;
 			//echo "is ehc ".$GetIsEhc;exit;
 			// Store session values
