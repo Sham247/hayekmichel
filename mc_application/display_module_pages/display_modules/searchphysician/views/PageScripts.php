@@ -1052,7 +1052,14 @@ $(function()
 					doc_list_html += '<li class="price">'+doc_val.primary+'</li>';
 					if(doc_val.address != '')
 					{
-						doc_list_html += '<li class="bullet-item address"><i class="icon-home"></i><span>'+doc_val.address+'</span></li>';
+						doc_list_html += '<li class="bullet-item address"><i ' +
+                            'class="icon-home"></i><span>'+doc_val
+                                .address+'<p style="display: block; margin: ' +
+                            '15px auto; text-align: center; font-weight: ' +
+                            'bold;"><a href = "https://maps.google' +
+                            '.it/maps?q='+doc_val.map_address+'" ' +
+                            'target="_blank">Driving ' +
+                            'Directions</a></p></span></li>';
 					}
 					else
 					{
@@ -1070,7 +1077,7 @@ $(function()
 					doc_list_html += '<li class="bullet-item">Quality <br> <img src="'+doc_val.quality_img+'"></li>';
 					doc_list_html += '<li class="bullet-item">Efficiency <br> <img src="'+doc_val.efficiency_img+'"></li>';
 					// doc_list_html += '<li class="compare_map"><iframe width="235" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.it/maps?q='+doc_val.map_address+'&amp;output=embed"></iframe></li>';
-					doc_list_html += '<p style="display: block; margin: 15px auto; text-align: center; font-weight: bold;"><a href = "https://maps.google.it/maps?q='+doc_val.map_address+'" target="_blank">Driving Directions</a></p>';
+
 					doc_list_html += '<input type="hidden" name="docno" id="get_'+doc_val.doc_id+'" value="'+doc_val.doc_id+'">';
 					doc_list_html += '<input type="hidden" name="docname" id="get_name_'+doc_val.doc_id+'" value="'+doc_val.name+'">';
 					doc_list_html += '<input type="hidden" name="docgender" id="get_image_'+doc_val.doc_id+'" value="'+doc_val.gender+'"><li class="cta-button">';
