@@ -1,4 +1,5 @@
 mc_application/config/database.php
+mc_application/config/config.php
 mc_application/logs/
 .sql
 .csv
@@ -8,4 +9,5 @@ mc_application/Provider_Master_20160727.csv
 mc_application/import_hospitalglobal.php
 mc_application/import_hospitalstar.php
 mc_application/import_provider_master_data.php
+.idea
 
