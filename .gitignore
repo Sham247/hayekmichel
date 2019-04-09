@@ -1,4 +1,5 @@
 mc_application/config/database.php
+mc_application/config/config.php
 mc_application/logs/
 .sql
 .csv
