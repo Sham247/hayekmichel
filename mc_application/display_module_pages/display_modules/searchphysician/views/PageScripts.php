@@ -185,7 +185,6 @@ $(function()
 	    	if(chooseby == "condition")
             {
             	$('#search_doc_cond').addClass('condition_category_list');
-            	$('#sub_condtion_result').css('display','none');
     			conditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Condition</span>";
             	subconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Sub Condition</span>";
             	subsubconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Sub Sub Condition</span>";

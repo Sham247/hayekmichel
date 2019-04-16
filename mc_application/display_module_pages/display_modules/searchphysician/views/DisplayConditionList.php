@@ -12,11 +12,12 @@ if(isset($FirstCondition) && count($FirstCondition)>0)
 	foreach($FirstCondition as $DisplayFirstCondition) 
 	{
 		$DisplayName = $DisplayFirstCondition->Condition;
-		if(strtolower($DisplayName) != 'hiv')
-		{
-			$DisplayName = ucfirst($DisplayName);
-			$DisplayName = ucfirst(strtolower($DisplayName));
-		}?>
+//		if(strtolower($DisplayName) != 'hiv')
+//		{
+//			$DisplayName = ucfirst($DisplayName);
+//			$DisplayName = ucfirst(strtolower($DisplayName));
+//		}
+		?>
 		<div class='large-6 columns'>
 			<div>
 	      		<span><?php

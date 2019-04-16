@@ -50,8 +50,12 @@ class Searchphysician_model  extends CI_Model
 	public function GetFirstCondition()
 	{
 		$Gender 	= $this->input->post('gender');
+	// 	$Query 		= "SELECT `CondNum`, `Condition` FROM ".GetLangLabel
+		//('Tbl_ConditionList')." WHERE `CondNum` is not null
+		//         	   AND `Gender` IN ('Both','".$Gender."') GROUP BY `CondNum`,
+	//	`Condition` ORDER BY `Condition`";
 		$Query 		= "SELECT `CondNum`, `Condition` FROM ".GetLangLabel('Tbl_ConditionList')." WHERE `CondNum` is not null 
-		         	   AND `Gender` IN ('Both','".$Gender."') GROUP BY `CondNum`, `Condition` ORDER BY `Condition`";
+		         	   AND `Gender` IN ('Both','".$Gender."') GROUP BY `Condition` ORDER BY `Condition`";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)
@@ -67,16 +71,18 @@ class Searchphysician_model  extends CI_Model
     	$AddGenderCond	= "";
 		if($Gender == 'M')
 		{
-			$AddGenderCond	= " AND cl.`Gender` IN ('Both','M') ";
+			$AddGenderCond	= " AND `Gender` IN ('Both','M') ";
 		}
 		elseif($Gender == 'F')
 		{
-			$AddGenderCond	= " AND cl.`Gender` IN ('Both','F') ";
+			$AddGenderCond	= " AND `Gender` IN ('Both','F') ";
 		}
-		$Query 		= "SELECT cl.subcondnum as SubConditionNo , cl.SubCondition,sclt.description 
-					   FROM ".GetLangLabel('Tbl_ConditionList')."  cl
-					   LEFT JOIN ".GetLangLabel('Tbl_SubConditionLaymanText')." sclt ON (sclt.sub_condition_no=cl.subcondnum)
-					   WHERE cl.CondNum = $ConditionId ".$AddGenderCond." group by cl.subcondnum, cl.SubCondition ORDER BY cl.SubCondition";
+//		$Query 		= "SELECT cl.subcondnum as SubConditionNo , cl.SubCondition,sclt.description
+//					   FROM ".GetLangLabel('Tbl_ConditionList')."  cl
+//					   LEFT JOIN ".GetLangLabel('Tbl_SubConditionLaymanText')." sclt ON (sclt.sub_condition_no=cl.subcondnum)
+//					   WHERE cl.CondNum = $ConditionId ".$AddGenderCond." group by cl.subcondnum, cl.SubCondition ORDER BY cl.SubCondition";
+
+				$Query 		= "SELECT subcondition, num as SubConditionNo from ".GetLangLabel('Tbl_ConditionList')." WHERE  CondNum =  $ConditionId ".$AddGenderCond." group by subcondition ORDER BY subcondition";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)

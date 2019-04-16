@@ -138,9 +138,9 @@ $(document).ready(function(){
 							  <div id="condtion_result" class='first_category_content'></div>
 							   <h3 class='second_category_bg'>Sub Condition</h3>
 							  <div id="sub_condtion_result" class='second_category_content'></div>
-							 <!--  <h3 class='third_category_bg'>Sub Sub Condition</h3>
+							 <h3 class='third_category_bg'>Sub Sub Condition</h3>
 							  <div id="subsub_condtion_result" class='third_category_content'></div>
-							  -->
+
 						</div>
 						<div id="spinner" class="spinner" style="display:none;">
 						    <img id="img-spinner" src="<?php echo ImageUrl('loading_spinner.gif'); ?>" alt="Loading"/>
