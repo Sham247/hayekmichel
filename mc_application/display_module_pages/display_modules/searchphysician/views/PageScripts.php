@@ -319,11 +319,40 @@ $(function()
 	/* Script used to get sub condition list - modified on 19 Oct, 2014 */
 	$('body').on('click', '.condnum', function()
 	{
+	    console.log('condnum = ' + $(this).val());
 		var getcondno 	= $(this).val();
 		var gender 		= $('#gender').val();
 		$('#disable_doc_reports').removeAttr('disabled');
+        $('#sub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php echo ImageUrl("loading_spinner.gif"); ?>' alt='Loading'/></div>");
+        $.ajax({type: "POST",url: "<?php echo base_url('secondcondition'); ?>",data: { getcondno: getcondno,gender:gender },
+            success: function( subconds )
+            {
+                $('#sub_condtion_result').prev().removeClass('ui-state-disabled');
+                $('#sub_condtion_result').html(subconds);
+                $("#accordion").accordion("option", "active", 2);
+            }});
 		
 	});
+
+
+    /* Script used to get sub condition list - was missing... 4/16/19 */
+    $('body').on('click','.sub_cond_num',function()
+    {
+        var getcondno 	= $(this).val();
+        var gender 			= $('#gender').val();
+        $('#disable_doc_reports').removeAttr('disabled');
+        $('#sub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php echo ImageUrl("loading_spinner.gif"); ?>' alt='Loading'/></div>");
+        $.ajax({type: "POST",url: "<?php echo base_url('secondcondition'); ?>",data: { getcondno: getcondno,gender:gender },
+            success: function( subconds )
+            {
+                $('#sub_condtion_result').prev().removeClass('ui-state-disabled');
+                $('#sub_condtion_result').html(subconds);
+                $("#accordion").accordion("option", "active", 2);
+            }});
+    });
+
+
+
 	/* Script used to get sub sub condition list - modified on 19 Oct, 2014 */
 	$('body').on('click','.subsub_cond_num',function()
 	{

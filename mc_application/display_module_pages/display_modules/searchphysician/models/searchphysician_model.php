@@ -66,7 +66,8 @@ class Searchphysician_model  extends CI_Model
 	/* Function used to get second condition result - created by Karthik K on 19 Oct, 2014 */
 	public function GetSecondCondition()
 	{
-		$ConditionId 	= $this->input->post('condno');
+    $ConditionId 	= $this->input->post('getcondno');
+//		$ConditionId = 3;
     	$Gender 		= $this->input->post('gender');
     	$AddGenderCond	= "";
 		if($Gender == 'M')
@@ -82,7 +83,7 @@ class Searchphysician_model  extends CI_Model
 //					   LEFT JOIN ".GetLangLabel('Tbl_SubConditionLaymanText')." sclt ON (sclt.sub_condition_no=cl.subcondnum)
 //					   WHERE cl.CondNum = $ConditionId ".$AddGenderCond." group by cl.subcondnum, cl.SubCondition ORDER BY cl.SubCondition";
 
-				$Query 		= "SELECT subcondition, num as SubConditionNo from ".GetLangLabel('Tbl_ConditionList')." WHERE  CondNum =  $ConditionId ".$AddGenderCond." group by subcondition ORDER BY subcondition";
+  $Query 		= "SELECT SubCondition, TRIM(num) as SubConditionNo from ".GetLangLabel('Tbl_ConditionList')." WHERE  CondNum =  $ConditionId $AddGenderCond  group by subcondition ORDER BY subcondition";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)

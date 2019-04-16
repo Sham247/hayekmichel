@@ -30,20 +30,25 @@ if(isset($FirstCondition) && count($FirstCondition)>0)
 }
 if(isset($SecondCondition) && count($SecondCondition)>0)
 {
+
 	foreach($SecondCondition as $DisplaySecondCondition) 
 	{
+
+//      var_dump($DisplaySecondCondition);
 		$DisplayName = $DisplaySecondCondition->SubCondition;
 		if(strtolower($DisplayName) != 'human immunodeficiency virus [hiv] infection')
 		{
 			$DisplayName = ucfirst($DisplayName);
 			$DisplayName = ucfirst(strtolower($DisplayName));
-		}?>
+		}
+
+		?>
 		<div class='large-6 columns'>
 			<div>
 	      		<span><?php
 	      		echo form_radio(array('id'=>'sub_chkCond_'.$DisplaySecondCondition->SubConditionNo,'name'=>'subconditionname','class'=>'subsub_cond_num'),$DisplaySecondCondition->SubConditionNo); ?>
 	      		</span><?php 
-	      		echo form_label($DisplayName,'sub_chkCond_'.$DisplaySecondCondition->SubConditionNo,array('class'=>'McToolTip','show-tip'=>$DisplaySecondCondition->description)); ?>
+	      		echo form_label($DisplayName,'sub_chkCond_'.$DisplaySecondCondition->SubConditionNo,array('class'=>'McToolTip','show-tip'=>$DisplaySecondCondition->SubCondition)); ?>
 			</div>      
 	    </div><?php
 	}
