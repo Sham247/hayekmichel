@@ -57,7 +57,7 @@ if(isset($ThirdCondition) && count($ThirdCondition)>0)
 {
 	foreach($ThirdCondition as $DisplayThirdCondition) 
 	{
-		$DisplayName = $DisplayThirdCondition['Sub sub condition'];
+		$DisplayName = $DisplayThirdCondition['Description'];
 		if(strtolower($DisplayName) != 'hiv')
 		{
 			$DisplayName = ucfirst($DisplayName);
@@ -66,11 +66,34 @@ if(isset($ThirdCondition) && count($ThirdCondition)>0)
 		<div class='large-6 columns'>
 			<div>
 	      		<span><?php
-	      		echo form_radio(array('id'=>'subsubcond_chkCond_'.$DisplayThirdCondition['SSCondNum'],'name'=>'subsubconditionname'),$DisplayThirdCondition['SSCondNum']); ?>
+	      		echo form_radio(array('id'=>'subsubcond_chkCond_'.$DisplayThirdCondition['SSCondNum'],'name'=>'subsubconditionname','class'=>'subsubsub_cond_num'),$DisplayThirdCondition['SSCondNum']); ?>
 	      		</span><?php 
 	      		echo form_label($DisplayName,'subsubcond_chkCond_'.$DisplayThirdCondition['SSCondNum'],array('class'=>'McToolTip','show-tip'=>$DisplayThirdCondition['Description'])); ?>
 			</div>      
 	    </div><?php
 	}
 }
+
+
+  if(isset($FourthCondition) && count($FourthCondition)>0)
+  {
+//      var_dump($FourthCondition);
+    foreach($FourthCondition as $DisplayFourthCondition)
+    {
+      $DisplayName = $DisplayFourthCondition['Description'];
+      if(strtolower($DisplayName) != 'hiv')
+      {
+        $DisplayName = ucfirst($DisplayName);
+        $DisplayName = ucfirst(strtolower($DisplayName));
+      }?>
+        <div class='large-6 columns'>
+        <div>
+	      		<span><?php
+                    echo form_radio(array('id'=>'subsubsubcond_chkCond_'.$DisplayFourthCondition['SSSCondNum'],'name'=>'subsubconditionname'),$DisplayFourthCondition['SSSCondNum']); ?>
+	      		</span><?php
+            echo form_label($DisplayName,'subsubsubcond_chkCond_'.$DisplayFourthCondition['SSSCondNum'],array('class'=>'McToolTip','show-tip'=>$DisplayFourthCondition['Description'])); ?>
+        </div>
+        </div><?php
+    }
+  }
 ?>

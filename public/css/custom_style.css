@@ -234,6 +234,8 @@ select.list_sort_by{width: auto; margin:0px 0px 0px; float: right;}
 #search_doc_cond.condition_category_list .second_category_content{background-color:#FFF2DF;background-image:none}
 #search_doc_cond.condition_category_list .third_category_bg{background-color:#8DD18D;background-image:none}
 #search_doc_cond.condition_category_list .third_category_content{background-color:#E8F6E8;background-image:none}
+#search_doc_cond.condition_category_list .fourth_category_bg{background-color:#e09409;background-image:none}
+#search_doc_cond.condition_category_list .fourth_category_content{background-color:#fff9db;background-image:none}
 .doctor_display_list article.post{margin:0;padding:10px;border-radius: 5px;border:1px solid #e6e6e6;}
 .doctor_display_list article.post.cond_bg{background-color:#CEF3FF;padding:10px;border-radius: 5px;border:1px solid #5CD6FF;}
 .doctor_display_list article.post.scond_bg{background-color:#FFF2DF;padding:10px;border-radius: 5px;border:1px solid #FFCC7F;}

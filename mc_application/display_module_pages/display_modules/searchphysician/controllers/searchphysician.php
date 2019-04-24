@@ -159,6 +159,14 @@ class Searchphysician extends MX_Controller
 		$Result['ThirdCondition']	= $this->spmodel->GetThirdCondition();
 		$this->load->view('DisplayConditionList',$Result);
 	}
+
+  /* Method used to get fourth condition list - created by Jay V on 4/16/2019 */
+  public function fourthcondition()
+  {
+    $Result['FourthCondition']	= $this->spmodel->GetFourthCondition();
+    $this->load->view('DisplayConditionList',$Result);
+  }
+
 	/* Method used to get first specialty list - created by Karthik K on 19 Oct, 2014 */
 	public function firstspecialty()
 	{
@@ -262,6 +270,7 @@ class Searchphysician extends MX_Controller
 			$GetCondition 		= (isset($_POST['conditionname']) && trim($_POST['conditionname']) != '')?$_POST['conditionname']:'';
 			$GetSubCond 		= (isset($_POST['subconditionname']) && trim($_POST['subconditionname']) != '')?$_POST['subconditionname']:'';
 			$GetSsubCond 		= (isset($_POST['subsubconditionname']) && trim($_POST['subsubconditionname']) != '')?$_POST['subsubconditionname']:'';
+      $GetSSsubCond 		= (isset($_POST['subsubsubconditionname']) && trim($_POST['subsubsubconditionname']) != '')?$_POST['subsubsubconditionname']:'';
 			$GetMiles 			= (isset($_POST['Range']) && trim($_POST['Range']) != '')?$_POST['Range']:'';
 			$GetZipcode			= (isset($_POST['preferred_zip']) && trim($_POST['preferred_zip']) != '')?$_POST['preferred_zip']:'';
 			$GetIsEhc			= (isset($_POST['is_ehc']) && trim($_POST['is_ehc']) != '')?$_POST['is_ehc']:'';

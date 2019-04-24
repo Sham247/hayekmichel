@@ -56,6 +56,7 @@ $route['getzipcode']			= "searchphysician/getzipcode";
 $route['firstcondition']		= "searchphysician/firstcondition";
 $route['secondcondition']		= "searchphysician/secondcondition";
 $route['thirdcondition']		= "searchphysician/thirdcondition";
+$route['fourthcondition']		= "searchphysician/fourthcondition";
 $route['firstspecialty']		= "searchphysician/firstspecialty";
 $route['secondspecialty']		= "searchphysician/secondspecialty";
 $route['thirdspecialty']		= "searchphysician/thirdspecialty";
