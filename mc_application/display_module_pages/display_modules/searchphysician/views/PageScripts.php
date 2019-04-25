@@ -335,7 +335,9 @@ $(function()
         $.ajax({type: "POST",url: "<?php echo base_url('secondcondition'); ?>",data: { getcondno: getcondno,gender:gender },
             success: function( subconds )
             {
+                console.log('in the funciton on line 338 of searchphys model');
                 $('#sub_condtion_result').prev().removeClass('ui-state-disabled');
+                $('#sub_condtion_result').slideDown('slow');
                 $('#sub_condtion_result').html(subconds);
                 $("#accordion").accordion("option", "active", 2);
             }});
@@ -343,22 +345,23 @@ $(function()
 	});
 
 
-    /* Script used to get sub Primary Diagnosis list - was missing... 4/16/19 */
-    $('body').on('click','.sub_cond_num',function()
-    {
-        var getcondno 	= $(this).val();
-        console.log('Primary Diagnosis = ' + $(this).val());
-        var gender 			= $('#gender').val();
-        $('#disable_doc_reports').removeAttr('disabled');
-        $('#sub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php echo ImageUrl("loading_spinner.gif"); ?>' alt='Loading1'/></div>");
-        $.ajax({type: "POST",url: "<?php echo base_url('secondcondition'); ?>",data: { getcondno: getcondno,gender:gender },
-            success: function( subsubconds )
-            {
-                $('#sub_condtion_result').prev().removeClass('ui-state-disabled');
-                $('#sub_condtion_result').html(subsubconds);
-                $("#accordion").accordion("option", "active", 2);
-            }});
-    });
+    ///* Script used to get sub Primary Diagnosis list - was missing... 4/16/19 */
+    //$('body').on('click','.sub_cond_num',function()
+    //{
+    //    var getcondno 	= $(this).val();
+    //    console.log('Primary Diagnosis = ' + $(this).val());
+    //    var gender 			= $('#gender').val();
+    //    $('#disable_doc_reports').removeAttr('disabled');
+    //    $('#sub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php //echo ImageUrl("loading_spinner.gif"); ?>//' alt='Loading1'/></div>");
+    //    $.ajax({type: "POST",url: "<?php //echo base_url('secondcondition'); ?>//",data: { getcondno: getcondno,gender:gender },
+    //        success: function( subsubconds )
+    //        {
+    //            console.log('in the funciton on line 358 of searchphys model');
+    //            $('#sub_condtion_result').prev().removeClass('ui-state-disabled');
+    //            $('#sub_condtion_result').html(subsubconds);
+    //            $("#accordion").accordion("option", "active", 2);
+    //        }});
+    //});
 
 
 
@@ -373,6 +376,9 @@ $(function()
 		$.ajax({type: "POST",url: "<?php echo base_url('thirdcondition'); ?>",data: { getsubcondno: getsubcondno,gender:gender },
 	    success: function( subsubsubconds )
 	    {
+            console.log('in the funciton on line 378 of searchphys model');
+            $('#sub_condtion_result').slideUp('slow');
+            $('#subsub_condtion_result').slideDown('slow');
 	    	$('#subsub_condtion_result').prev().removeClass('ui-state-disabled');
             $('#subsub_condtion_result').html(subsubsubconds);
 			$("#accordion").accordion("option", "active", 2);						                    
@@ -392,6 +398,9 @@ $(function()
         $.ajax({type: "POST",url: "<?php echo base_url('fourthcondition'); ?>",data: { getsubsubcondno: getsubsubcondno,gender:gender },
             success: function( subsubsubsubconds )
             {
+                console.log('in the funciton on line 388 of searchphys model');
+                $('#subsub_condtion_result').slideUp('slow');
+                $('#subsubsub_condtion_result').slideDown('slow');
                 $('#subsubsub_condtion_result').prev().removeClass('ui-state-disabled');
                 $('#subsubsub_condtion_result').html(subsubsubsubconds);
                 $("#accordion").accordion("option", "active", 2);

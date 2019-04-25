@@ -96,8 +96,8 @@ class Searchphysician_model  extends CI_Model
 		{
 			$AddGenderCond	= " AND `Gender` IN ('Both','F') ";
 		}
-    		$Query 		= "SELECT secondarydiagnosis as Description, SUBSTR(`secondarydiag_code`,1,2) as SSCondNum FROM ".GetLangLabel('Tbl_ConditionList')." 
-    					   where primaryid = '".$SubConditionId."' ".$AddGenderCond." group by secondarydiagnosis order by secondarydiagnosis";
+    		$Query 		= "SELECT secondarydiagnosis as Description, primaryid as SSCondNum FROM ".GetLangLabel('Tbl_ConditionList')." 
+    					   where primaryid = '".$SubConditionId."' ".$AddGenderCond."  AND SUBSTR(secondarydiag_code,4,1) != '.' group by secondarydiagnosis order by secondarydiagnosis";
 
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result_array();
@@ -122,7 +122,7 @@ class Searchphysician_model  extends CI_Model
     {
       $AddGenderCond	= " AND `Gender` IN ('Both','F') ";
     }
-    $Query 		= "select id as SSSCondNum, dsc as Description from ".GetLangLabel('Tbl_ConditionList')."  where subsubsubcondition = '".$SubSubConditionId."' ".$AddGenderCond." group by dsc order by dsc";
+    $Query 		= "select id as SSSCondNum, secondarydiagnosis as Description, secondarydiag_code from ".GetLangLabel('Tbl_ConditionList')."  where primaryid = '".$SubSubConditionId."' ".$AddGenderCond." AND SUBSTR(secondarydiag_code,4,1) = '.' group by secondarydiagnosis order by secondarydiagnosis";
     $Details 	= $this->db->query($Query);
     $Result 	= $Details->result_array();
     if(isset($Result) && count($Result)>0)
