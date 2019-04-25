@@ -185,10 +185,11 @@ $(function()
 	    	if(chooseby == "condition")
             {
             	$('#search_doc_cond').addClass('condition_category_list');
-            	$('#sub_condtion_result').css('display','none');
     			conditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Condition</span>";
-            	subconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Sub Condition</span>";
-            	subsubconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Sub Sub Condition</span>";
+            	subconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Primary Diagnosis</span>";
+            	subsubconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Secondary Diagnosis</span>";
+                subsubsubconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Tertiary Diagnosis</span>";
+                $('h3#ui-id-4').html(subsubsubconditionname);
                 $('h3#ui-id-3').html(subsubconditionname);
                 $('h3#ui-id-1').html(conditionname);
                 $('h3#ui-id-2').html(subconditionname);
@@ -253,8 +254,10 @@ $(function()
 			if(chooseby == "condition")
             {
     			conditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Condition</span>";
-            	subconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Sub Condition</span>";
-            	subsubconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Sub Sub Condition</span>";
+            	subconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Primary Diagnosis</span>";
+            	subsubconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Secondary Diagnosis</span>";
+                subsubsubconditionname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Tertiary Diagnosis</span>";
+                $('h3#ui-id-4').html(subsubsubconditionname);
                 $('h3#ui-id-3').html(subsubconditionname);
                 $('h3#ui-id-1').html(conditionname);
             	$('h3#ui-id-2').html(subconditionname);
@@ -264,6 +267,7 @@ $(function()
             	specialtyname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Specialty</span>";
             	subspecialtyname = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Sub Specialty</span>";
             	proceduregroup = "<span class='ui-accordion-header-icon ui-icon ui-icon-circle-arrow-s'></span><span>Procedure Group</span>";
+                $('h3#ui-id-4').html();
             	$('h3#ui-id-3').html(proceduregroup);
             	$('h3#ui-id-1').html(specialtyname);
             	$('h3#ui-id-2').html(subspecialtyname);
@@ -317,30 +321,96 @@ $(function()
 	    $('button#disable_doc_reports').attr('disabled','disabled');
 	    sent_request	= false;
 	});
-	/* Script used to get sub condition list - modified on 19 Oct, 2014 */
+
+
+
+	/* Script used to get condition list - modified on 19 Oct, 2014 */
 	$('body').on('click', '.condnum', function()
 	{
+	    console.log('Condition = ' + $(this).val());
 		var getcondno 	= $(this).val();
 		var gender 		= $('#gender').val();
 		$('#disable_doc_reports').removeAttr('disabled');
+        $('#sub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php echo ImageUrl("loading_spinner.gif"); ?>' alt='Loading0'/></div>");
+        $.ajax({type: "POST",url: "<?php echo base_url('secondcondition'); ?>",data: { getcondno: getcondno,gender:gender },
+            success: function( subconds )
+            {
+                console.log('in the funciton on line 338 of searchphys model');
+                $('#sub_condtion_result').prev().removeClass('ui-state-disabled');
+                $('#sub_condtion_result').slideDown('slow');
+                $('#sub_condtion_result').html(subconds);
+                $("#accordion").accordion("option", "active", 2);
+            }});
 		
 	});
+
+
+    ///* Script used to get sub Primary Diagnosis list - was missing... 4/16/19 */
+    //$('body').on('click','.sub_cond_num',function()
+    //{
+    //    var getcondno 	= $(this).val();
+    //    console.log('Primary Diagnosis = ' + $(this).val());
+    //    var gender 			= $('#gender').val();
+    //    $('#disable_doc_reports').removeAttr('disabled');
+    //    $('#sub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php //echo ImageUrl("loading_spinner.gif"); ?>//' alt='Loading1'/></div>");
+    //    $.ajax({type: "POST",url: "<?php //echo base_url('secondcondition'); ?>//",data: { getcondno: getcondno,gender:gender },
+    //        success: function( subsubconds )
+    //        {
+    //            console.log('in the funciton on line 358 of searchphys model');
+    //            $('#sub_condtion_result').prev().removeClass('ui-state-disabled');
+    //            $('#sub_condtion_result').html(subsubconds);
+    //            $("#accordion").accordion("option", "active", 2);
+    //        }});
+    //});
+
+
+
 	/* Script used to get sub sub condition list - modified on 19 Oct, 2014 */
 	$('body').on('click','.subsub_cond_num',function()
 	{
 		var getsubcondno 	= $(this).val();
+        console.log('Primary Diagnosis = ' + $(this).val());
 		var gender 			= $('#gender').val();
 		$('#disable_doc_reports').removeAttr('disabled');
-		$('#subsub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php echo ImageUrl("loading_spinner.gif"); ?>' alt='Loading'/></div>");
+		$('#subsub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php echo ImageUrl("loading_spinner.gif"); ?>' alt='Loading2'/></div>");
 		$.ajax({type: "POST",url: "<?php echo base_url('thirdcondition'); ?>",data: { getsubcondno: getsubcondno,gender:gender },
-	    success: function( subsubconds )
+	    success: function( subsubsubconds )
 	    {
+            console.log('in the funciton on line 378 of searchphys model');
+            $('#sub_condtion_result').slideUp('slow');
+            $('#subsub_condtion_result').slideDown('slow');
 	    	$('#subsub_condtion_result').prev().removeClass('ui-state-disabled');
-            $('#subsub_condtion_result').html(subsubconds);
+            $('#subsub_condtion_result').html(subsubsubconds);
 			$("#accordion").accordion("option", "active", 2);						                    
 	    }});
 	});
-	/* Script used to get specialty list - modified on 19 Oct, 2014 */
+
+
+    /* Script used to get sub sub condition list - modified on 19 Oct, 2014 */
+    $('body').on('click','.subsubsub_cond_num',function()
+    {
+
+        var getsubsubcondno 	= $(this).val();
+        console.log('Secondary Diagnosis = ' + $(this).val());
+        var gender 			= $('#gender').val();
+        $('#disable_doc_reports').removeAttr('disabled');
+        $('#subsub_condtion_result').html("<div class='txt_center'><img id='img-spinner' src='<?php echo ImageUrl("loading_spinner.gif"); ?>' alt='Loading3'/></div>");
+        $.ajax({type: "POST",url: "<?php echo base_url('fourthcondition'); ?>",data: { getsubsubcondno: getsubsubcondno,gender:gender },
+            success: function( subsubsubsubconds )
+            {
+                console.log('in the funciton on line 388 of searchphys model');
+                $('#subsub_condtion_result').slideUp('slow');
+                $('#subsubsub_condtion_result').slideDown('slow');
+                $('#subsubsub_condtion_result').prev().removeClass('ui-state-disabled');
+                $('#subsubsub_condtion_result').html(subsubsubsubconds);
+                $("#accordion").accordion("option", "active", 2);
+            }});
+    });
+
+
+
+
+    /* Script used to get specialty list - modified on 19 Oct, 2014 */
 	$('body').on('click', '.specnum', function()
 	{
 		var getspecial =  $(this).val();
@@ -411,6 +481,7 @@ $(function()
 			var conditionname 		= $('input[name=conditionname]:checked').val();
 			var subconditionname 	= $('input[name=subconditionname]:checked').val();
 			var subsubconditionname = $('input[name=subsubconditionname]:checked').val();
+            var subsubsubconditionname = $('input[name=subsubsubconditionname]:checked').val();
 			var specialno 			= $('input[name=specialtyname]:checked').val();
 			var getsubspecial 		= $('input[name=subspecialtyname]:checked').val();
 			var controlnum 			= $('input[name=proceduregroup]:checked').val();

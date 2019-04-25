@@ -50,8 +50,8 @@ class Searchphysician_model  extends CI_Model
 	public function GetFirstCondition()
 	{
 		$Gender 	= $this->input->post('gender');
-		$Query 		= "SELECT `CondNum`, `Condition` FROM ".GetLangLabel('Tbl_ConditionList')." WHERE `CondNum` is not null 
-		         	   AND `Gender` IN ('Both','".$Gender."') GROUP BY `CondNum`, `Condition` ORDER BY `Condition`";
+		$Query 		= "SELECT id as CondNum, condition_name as `Condition` FROM ".GetLangLabel('Tbl_ConditionList')." WHERE 
+		         	   condition_name != '' AND Gender IN ('Both','".$Gender."') GROUP BY condition_name ORDER BY condition_name";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)
@@ -62,21 +62,18 @@ class Searchphysician_model  extends CI_Model
 	/* Function used to get second condition result - created by Karthik K on 19 Oct, 2014 */
 	public function GetSecondCondition()
 	{
-		$ConditionId 	= $this->input->post('condno');
+    $ConditionId 	= $this->input->post('getcondno');
     	$Gender 		= $this->input->post('gender');
     	$AddGenderCond	= "";
 		if($Gender == 'M')
 		{
-			$AddGenderCond	= " AND cl.`Gender` IN ('Both','M') ";
+			$AddGenderCond	= " AND `Gender` IN ('Both','M') ";
 		}
 		elseif($Gender == 'F')
 		{
-			$AddGenderCond	= " AND cl.`Gender` IN ('Both','F') ";
+			$AddGenderCond	= " AND `Gender` IN ('Both','F') ";
 		}
-		$Query 		= "SELECT cl.subcondnum as SubConditionNo , cl.SubCondition,sclt.description 
-					   FROM ".GetLangLabel('Tbl_ConditionList')."  cl
-					   LEFT JOIN ".GetLangLabel('Tbl_SubConditionLaymanText')." sclt ON (sclt.sub_condition_no=cl.subcondnum)
-					   WHERE cl.CondNum = $ConditionId ".$AddGenderCond." group by cl.subcondnum, cl.SubCondition ORDER BY cl.SubCondition";
+  $Query 		= "SELECT primarydiagnosis as SubCondition, id as SubConditionNo from ".GetLangLabel('Tbl_ConditionList')." WHERE  conditionid =  $ConditionId $AddGenderCond ORDER BY primarydiagnosis";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)
@@ -84,6 +81,7 @@ class Searchphysician_model  extends CI_Model
 			return $Result;
 		}
 	}
+
 	/* Function used to get third condition result - created by Karthik K on 19 Oct, 2014 */
 	public function GetThirdCondition()
 	{
@@ -98,10 +96,9 @@ class Searchphysician_model  extends CI_Model
 		{
 			$AddGenderCond	= " AND `Gender` IN ('Both','F') ";
 		}
-		$Query 		= "SELECT cl.`SSCondNum`,cl.`Sub sub condition`,lt.Description FROM ".GetLangLabel('Tbl_ConditionList')."  cl
-					   LEFT JOIN ".GetLangLabel('Tbl_LaymanText')." lt ON (lt.Sscondnum=cl.SSCondNum)
-					   WHERE cl.`SubCondNum` = $SubConditionId ".$AddGenderCond." GROUP BY cl.`SSCondNum`,cl.`Sub sub condition` 
-					   ORDER BY cl.`Sub sub condition`";
+    		$Query 		= "SELECT secondarydiagnosis as Description, primaryid as SSCondNum FROM ".GetLangLabel('Tbl_ConditionList')." 
+    					   where primaryid = '".$SubConditionId."' ".$AddGenderCond."  AND SUBSTR(secondarydiag_code,4,1) != '.' group by secondarydiagnosis order by secondarydiagnosis";
+
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result_array();
 		if(isset($Result) && count($Result)>0)
@@ -109,6 +106,36 @@ class Searchphysician_model  extends CI_Model
 			return $Result;
 		}
 	}
+
+
+ /* Function used to get fourth condition result - created by Jvolk 4/16/19 */
+  public function GetFourthCondition()
+  {
+    $SubSubConditionId 	= $this->input->post('getsubsubcondno');
+    $Gender 			= $this->input->post('gender');
+    $AddGenderCond		= "";
+    if($Gender == 'M')
+    {
+      $AddGenderCond	= " AND `Gender` IN ('Both','M') ";
+    }
+    elseif($Gender == 'F')
+    {
+      $AddGenderCond	= " AND `Gender` IN ('Both','F') ";
+    }
+    $Query 		= "select id as SSSCondNum, secondarydiagnosis as Description, secondarydiag_code from ".GetLangLabel('Tbl_ConditionList')."  where primaryid = '".$SubSubConditionId."' ".$AddGenderCond." AND SUBSTR(secondarydiag_code,4,1) = '.' group by secondarydiagnosis order by secondarydiagnosis";
+    $Details 	= $this->db->query($Query);
+    $Result 	= $Details->result_array();
+    if(isset($Result) && count($Result)>0)
+    {
+      return $Result;
+    }
+  }
+
+
+
+
+
+
 	/* Function used to get first specialty result - created by Karthik K on 31 Oct, 2014 */
 	public function GetFirstSpecialty()
 	{

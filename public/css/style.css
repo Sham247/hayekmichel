@@ -618,6 +618,12 @@ iframe {border:none}
 
 @media only screen and (max-width: 480px) {
 
-.nivo-caption p.nivotitle{display:none !important}
-
+    .nivo-caption p.nivotitle {
+        display: none !important
+    }
+}
 /* Custom style start here 27/06/2014 create by hari */
+
+#ui-id-2 {
+display: block !important;
+}
