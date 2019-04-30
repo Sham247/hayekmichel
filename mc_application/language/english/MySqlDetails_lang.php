@@ -31,7 +31,7 @@ $lang['Tbl_ReportsSubCategory']		= "mc_dashboard_sub_category";
 $lang['Tbl_SubConditionLaymanText']	= "mc_sub_condition_laymantext";
 
 $lang['Tbl_DoctorList']			= 'providermaster_state';
-$lang['Tbl_ConditionList']		= 'newconditionv3b';
+$lang['Tbl_ConditionList']		= 'newconditionsv3';
 $lang['Tbl_SpecialtyList']		= 'specialtymaster';
 $lang['Tbl_HospitalGroupList']	= "hospital_group_list";
 $lang['Tbl_HospitalStar']		= "hospitalstar";
@@ -44,7 +44,7 @@ $lang['View_DoctorList']	= 'vwgetdoctors';
 
 /* MYSQL stored procedure name starts here */
 $lang['Sp_QuickSearchDetails']		= 'GetQuickSearchDetails';
-$lang['Sp_ConditionDoctorDetails']	= 'GetDoctorsListCond ';
+$lang['Sp_ConditionDoctorDetails']	= 'GetDoctorsListCond';
 $lang['Sp_SpecialtyDoctorDetails']	= 'GetDoctorsListSpec';
 $lang['Sp_NearestDoctorDetails']	= 'GetNearestDoctorList';
 /* MYSQL stored procedure name ends here */ ?>

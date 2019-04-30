@@ -222,11 +222,7 @@ class Searchphysician extends MX_Controller
 	/* Method used to get searched, sort and pagination doctor list - created by Karthik K on 05 Nov, 2014 */
 	public function getdoctorlist()
 	{
-		//$GetEhc = $_POST['is_ehc'];
-		//$GetStateid = $_POST['state_id'];
-		//echo "Testing ";//exit;
-		//print_r($_POST);exit;
-		// Get posting values
+
 		$GetStateid='';
 		if(isset($_POST['state_id']) && $_POST['state_id']!='4')
 		{
@@ -271,6 +267,7 @@ class Searchphysician extends MX_Controller
 			$GetSubCond 		= (isset($_POST['subconditionname']) && trim($_POST['subconditionname']) != '')?$_POST['subconditionname']:'';
 			$GetSsubCond 		= (isset($_POST['subsubconditionname']) && trim($_POST['subsubconditionname']) != '')?$_POST['subsubconditionname']:'';
       $GetSSsubCond 		= (isset($_POST['subsubsubconditionname']) && trim($_POST['subsubsubconditionname']) != '')?$_POST['subsubsubconditionname']:'';
+      // $GetSSsubCond 		= (isset($_POST['subsubsubconditionname']) && trim($_POST['subsubsubconditionname']) != '')?$_POST['subsubsubconditionname']:'';
 			$GetMiles 			= (isset($_POST['Range']) && trim($_POST['Range']) != '')?$_POST['Range']:'';
 			$GetZipcode			= (isset($_POST['preferred_zip']) && trim($_POST['preferred_zip']) != '')?$_POST['preferred_zip']:'';
 			$GetIsEhc			= (isset($_POST['is_ehc']) && trim($_POST['is_ehc']) != '')?$_POST['is_ehc']:'';
@@ -282,6 +279,7 @@ class Searchphysician extends MX_Controller
 			$CarrierId			= (isset($_POST['carrier_id']) && trim(DecodeValue($_POST['carrier_id'])) != '')?$_POST['carrier_id']:'';
 			$CarrierId 			= '';
 			$ListCount 			= 0;
+	//		var_dump($_POST);
 			//echo "is ehc ".$GetIsEhc;exit;
 			// Store session values
 			if($GetCondition != '')
@@ -401,6 +399,7 @@ class Searchphysician extends MX_Controller
 					{
 						$DoctorList['order_id']	= '';
 					}
+	//				var_dump($DoctorList);
 					$DoctorList['doc_id']		= $DisplayDoctor->id;
 					$DoctorList['doc_npi']		= $DisplayDoctor->NPI;
 					$DoctorList['name']			= $DisplayDoctor->ProvName;
@@ -444,7 +443,8 @@ class Searchphysician extends MX_Controller
 					}
 					$DoctorList['image']		= $DoctorImg;
 					$DoctorList['gender']		= $DisplayDoctor->Gender;
-					$Languages 					= $DisplayDoctor->Languages;
+//					$Languages 					= $DisplayDoctor->Languages;
+          $Languages = '';
 					if($Languages == '' || $Languages == '0')
 					{
 						$Languages = 'English';
@@ -472,11 +472,17 @@ class Searchphysician extends MX_Controller
 					{
 						$DoctorAddress	= '';
 					}
-					$DoctorList['address']		= $DoctorAddress;
+					$DoctorList['address']	= $DoctorAddress;
 					$DoctorList['phone']		= ($DisplayDoctor->Phone != '')?$DisplayDoctor->Phone:'';
-					$MapAddress 				= str_replace("#","",$DoctorAddress);
-					$MapAddress 				= str_replace("'","",$MapAddress);
-					$MapAddress 				= str_replace("<br>",",",$MapAddress);
+					if($DoctorList['phone'] != '') {
+            $DoctorList['phone'] = '(' .  Substr($DoctorList['phone'],0,3) . ') ' .
+                                          Substr($DoctorList['phone'],3,3) . '-'  .
+                                          Substr($DoctorList['phone'],6,4);
+
+          }
+					$MapAddress 				    = str_replace("#","",$DoctorAddress);
+					$MapAddress 				    = str_replace("'","",$MapAddress);
+					$MapAddress 				    = str_replace("<br>",",",$MapAddress);
 					$DoctorList['map_address']	= $MapAddress;
 					$InnerList[]				= $DoctorList;
 					$EncodeList['list'] 		= $InnerList;
