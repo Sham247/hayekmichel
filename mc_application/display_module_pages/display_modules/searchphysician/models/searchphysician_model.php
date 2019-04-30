@@ -26,13 +26,23 @@ class Searchphysician_model  extends CI_Model
 	/* Function used to get condition matched doctor details - created by Karthik K on 05 Nov, 2014 */
 	public function GetConditionDoctorList($ConditionId='',$SubConditionId='',$SubSubConditionId='',$Zipcode='',$IsEhc='',$Mileage='',$SortBy='',$StartLimit=0,$EndLimit=9,$StateId='',$CarrierId='')
 	{
-		
-		$DoctorList = $this->common_model->CallSp(GetLangLabel('Sp_ConditionDoctorDetails')."('".$Zipcode."','".$Mileage."','".$ConditionId."','".$SubConditionId."','".$SubSubConditionId."','".$StartLimit."','".$EndLimit."','".$SortBy."','".$StateId."','".$CarrierId."','".$IsEhc."')");
-		if(isset($DoctorList) && count($DoctorList)>0)
+
+// $DoctorList = $this->common_model->CallSp(GetLangLabel('Sp_ConditionDoctorDetails')."('".$Zipcode."','".$Mileage."','".$ConditionId."','".$SubConditionId."','".$SubSubConditionId."','".$StartLimit."','".$EndLimit."','".$SortBy."','".$StateId."','".$CarrierId."','".$IsEhc."')");
+
+/****
+ *
+ * the code below generates a random number for quality and efficiency --- just for demos
+ *
+ ****/
+		$Query =	"SELECT p.id, p.`NPI`, p.`PAC ID`,  CONCAT(p.`First Name`, ' ', p.`Last Name`) as ProvName, p.`Gender`, p.`Credential`, CONCAT(p.`Line 1 Street Address`, ' ', p.City, ', ', p.State, ' ',  SUBSTR(p.`Zip Code`,1,5),'-',SUBSTR(p.`Zip Code`,5,10)) as Address	, p.`Phone Number` as Phone, p.`Organization legal name`, p.`Primary specialty` as PrimarySpecialty, p.`Secondary specialty 1`, p.`Secondary specialty 2`, p.`Credential` as Education, p.`Graduation year`, p.`Professional accepts Medicare Assignment` as Accepts_Medicare, p.`Reported Quality Measures`	 as PQRS, p.`Used electronic health records` as EHR,  p.`heart_health_initiative` as HHI, p.`Hospital affiliation CCN 1`, p.`Hospital affiliation LBN 1`,  p.`Hospital affiliation CCN 2`, p.`Hospital affiliation LBN 2`,  p.`Hospital affiliation CCN 3`, p.`Hospital affiliation LBN 3`,  p.`Hospital affiliation CCN 4`,  p.`Hospital affiliation LBN 4`,  p.`Hospital affiliation CCN 5`, p.`Hospital affiliation LBN 5`, FLOOR(RAND()*(10-6+1)+1) as Quality, FLOOR(RAND()*(10-6+1)+1) as Efficiency from _phys_compare_medicare_raw_april2019 p, mc_state_list where mc_state_list.id = ".$StateId." AND p.state = mc_state_list.short_name AND p.`Primary specialty` IN (select specialty from specialities_conditions where condition_".$ConditionId." = 'X') group by p.NPI order by Quality desc, Efficiency desc LIMIT ".$StartLimit.", ".$EndLimit;
+		$Details 	= $this->db->query($Query);
+		$Result 	= $Details->result();
+		if(isset($Result) && count($Result)>0)
 		{
-			return $DoctorList;
+			return $Result;
 		}
 	}
+
 	/* Function used to get specialty matched doctor details - created by Karthik K on 05 Nov, 2014 */
 	public function GetSpecialtyDoctorList($SpecialtyId='',$SubSpecialtyId='',$ControlNumber='',$Zipcode='',$IsEhc='',$Mileage='',$SortBy='',$StartLimit=0,$EndLimit=9,$StateId='',$CarrierId='')
 	{
@@ -50,7 +60,7 @@ class Searchphysician_model  extends CI_Model
 	public function GetFirstCondition()
 	{
 		$Gender 	= $this->input->post('gender');
-		$Query 		= "SELECT id as CondNum, condition_name as `Condition` FROM ".GetLangLabel('Tbl_ConditionList')." WHERE 
+		$Query 		= "SELECT id as CondNum, TRIM(condition_name) as `Condition` FROM ".GetLangLabel('Tbl_ConditionList')." WHERE 
 		         	   condition_name != '' AND Gender IN ('Both','".$Gender."') GROUP BY condition_name ORDER BY condition_name";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
@@ -73,7 +83,7 @@ class Searchphysician_model  extends CI_Model
 		{
 			$AddGenderCond	= " AND `Gender` IN ('Both','F') ";
 		}
-  $Query 		= "SELECT primarydiagnosis as SubCondition, id as SubConditionNo from ".GetLangLabel('Tbl_ConditionList')." WHERE  conditionid =  $ConditionId $AddGenderCond ORDER BY primarydiagnosis";
+  $Query 		= "SELECT TRIM(primarydiagnosis) as SubCondition, id as SubConditionNo from ".GetLangLabel('Tbl_ConditionList')." WHERE  conditionid =  $ConditionId $AddGenderCond ORDER BY primarydiagnosis";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)
@@ -96,7 +106,7 @@ class Searchphysician_model  extends CI_Model
 		{
 			$AddGenderCond	= " AND `Gender` IN ('Both','F') ";
 		}
-    		$Query 		= "SELECT secondarydiagnosis as Description, primaryid as SSCondNum FROM ".GetLangLabel('Tbl_ConditionList')." 
+    		$Query 		= "SELECT TRIM(secondarydiagnosis) as Description, primaryid as SSCondNum FROM ".GetLangLabel('Tbl_ConditionList')." 
     					   where primaryid = '".$SubConditionId."' ".$AddGenderCond."  AND SUBSTR(secondarydiag_code,4,1) != '.' group by secondarydiagnosis order by secondarydiagnosis";
 
 		$Details 	= $this->db->query($Query);
@@ -122,8 +132,10 @@ class Searchphysician_model  extends CI_Model
     {
       $AddGenderCond	= " AND `Gender` IN ('Both','F') ";
     }
-    $Query 		= "select id as SSSCondNum, secondarydiagnosis as Description, secondarydiag_code from ".GetLangLabel('Tbl_ConditionList')."  where primaryid = '".$SubSubConditionId."' ".$AddGenderCond." AND SUBSTR(secondarydiag_code,4,1) = '.' group by secondarydiagnosis order by secondarydiagnosis";
-    $Details 	= $this->db->query($Query);
+   // $Query 		= "select id as SSSCondNum, TRIM(secondarydiagnosis) as Description, secondarydiag_code from ".GetLangLabel('Tbl_ConditionList')."  where primaryid = '".$SubSubConditionId."' ".$AddGenderCond." AND SUBSTR(secondarydiag_code,4,1) = '.' group by secondarydiagnosis order by secondarydiagnosis";
+		$Query 		= "select  Sscondnum as SSSCondNum, TRIM(secondarydiagnosis) as Description, secondarydiag_code from ".GetLangLabel('Tbl_ConditionList')."  where primaryid = '".$SubSubConditionId."' ".$AddGenderCond." AND SUBSTR(secondarydiag_code,4,1) = '.' group by secondarydiagnosis order by secondarydiagnosis";
+
+		$Details 	= $this->db->query($Query);
     $Result 	= $Details->result_array();
     if(isset($Result) && count($Result)>0)
     {

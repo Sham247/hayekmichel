@@ -14,30 +14,74 @@
     echo 'Connection failed: ' . $e->getMessage();
   }
 
-// get the general info
 
-// $sql = 'SELECT procedure_name, url from subcategories where catid = :id  and active = 1 and url != "" order by procedure_name';
-// $sth = $dbh->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-// $sth->execute(array(':id' => $id));
-// $results = $sth->fetchAll();
-// foreach($results as $r){
+  $states_array = [
+    'AK',
+    'AL',
+    'AR',
+    'AZ',
+    'CA',
+    'CO',
+    'CT',
+    'DE',
+    'FL',
+    'GA',
+    'HI',
+    'IA',
+    'ID',
+    'IL',
+    'IN',
+    'KS',
+    'KY',
+    'LA',
+    'MA',
+    'MD',
+    'ME',
+    'MI',
+    'MN',
+    'MO',
+    'MS',
+    'MT',
+    'NC',
+    'ND',
+    'NE',
+    'NH',
+    'NJ',
+    'NM',
+    'NV',
+    'NY',
+    'OH',
+    'OK',
+    'OR',
+    'PA',
+    'RI',
+    'SC',
+    'SD',
+    'TN',
+    'TX',
+    'UT',
+    'VA',
+    'VT',
+    'WA',
+    'WI',
+    'WV',
+    'WY'
+  ];
+  foreach ($states_array as $s) {
 
-
-// SELECT THe table with the min, max, avg and count for each state, for each quality measure.
-
-  $data = $pdo->query("SELECT _hospital_quality_min_max_count.*, _hospital_quality_cats_weight.category_weight_pct from _hospital_quality_min_max_count, _hospital_quality_cats_weight, _hospital_quality_measures  where _hospital_quality_min_max_count.location_state = 'GA' AND _hospital_quality_cats_weight.id = _hospital_quality_min_max_count.quality_category AND _hospital_quality_measures.measure_name = _hospital_quality_min_max_count.measure_name group by _hospital_quality_min_max_count.location_state, _hospital_quality_min_max_count.quality_category, _hospital_quality_min_max_count.measure_name")->fetchAll();
+  $data = $pdo->query("SELECT _hospital_quality_min_max_count.*, _hospital_quality_cats_weight.category_weight_pct from _hospital_quality_min_max_count, _hospital_quality_cats_weight, _hospital_quality_measures  where  _hospital_quality_cats_weight.id = _hospital_quality_min_max_count.quality_category AND _hospital_quality_measures.measure_name = _hospital_quality_min_max_count.measure_name group by _hospital_quality_min_max_count.location_state, _hospital_quality_min_max_count.quality_category, _hospital_quality_min_max_count.measure_name order by location_state")->fetchAll();
     foreach($data as $d) {
       $factor = 0;
       $counter = 0;
       //   $item_array = array();
       //    $item_array = get_percentiles($d['state_measure_count'], $d['state_measure_max']);
       echo '<h3>' . $d['measure_name'] . '</h3>';
-      echo $d['location_state'] . ' - ' . $d['condition_name'] . ' - ' . $d['measure_name'] . ' MIN: ' . $d['state_measure_min'] . ' MAX: ' . $d['state_measure_max'] . ' COUNT: ' . $d['state_measure_count'] .' WEIGHT: ' . $d['category_weight_pct'];
+      echo $d['location_state'] . ' - ' . $d['condition_name'] . ' - ' . $d['measure_name'] . ' MIN: ' . $d['state_measure_min'] . ' MAX: ' . $d['state_measure_max'] . ' COUNT: ' . $d['state_measure_count'] .' WEIGHT: ' . $d['category_weight_pct'] .' LOWER IS BETTER: ' . $d['lower_is_better'];
       if (intval($d['state_measure_max']) > 0) {
         $index = 100 / $d['state_measure_count'];
 
        // echo '<br> THE INDEX IS: ' . $index;
-        $data2 = $pdo->query("SELECT score, hospital_name, provider_id from _hospital_quality_raw_scores where location_state = 'GA' AND measure_name = '" . addslashes($d['measure_name']) . "' and score_text != 'Not Available' order by score")
+        $data2 = $pdo->query("SELECT score, hospital_name, provider_id from _hospital_quality_raw_scores where location_state = '". $d['location_state'] ."' AND measure_name = '" . addslashes($d['measure_name']) . "' and score_text != 'Not Available' order by score")
           ->fetchAll();
         if ($data2) {
           $array_of_scores = array();
@@ -66,8 +110,10 @@
               'percentile' => (intval($theItem * $index)),
               'quality_category' => $d['quality_category'],
               'weighted_score' => ((intval($theItem * $index)) * (intval($d['category_weight_pct'])/100)),
+              'lower_is_better' => $d['lower_is_better'],
+              'location_state' => $d['location_state'],
             ];
-            $sqlc = "INSERT INTO _hospital_quality_results (provider_id, hospital_name, measure_name, score, percentile, quality_category, weighted_score) VALUES (:provider_id, :hospital_name, :measure_name, :score, :percentile, :quality_category, :weighted_score)";
+            $sqlc = "INSERT INTO _hospital_quality_results (provider_id, hospital_name, measure_name, score, percentile, quality_category, weighted_score, lower_is_better, location_state) VALUES (:provider_id, :hospital_name, :measure_name, :score, :percentile, :quality_category, :weighted_score, :lower_is_better, :location_state)";
             $stmt = $pdo->prepare($sqlc);
            $stmt->execute($datac);
 //        //    echo 'INSERT SHOULD OCCUR HERE... ';

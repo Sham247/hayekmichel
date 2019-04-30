@@ -25,7 +25,7 @@
 
 // SELECT THe table with the min, max, avg and count for each state, for each quality measure.
 
-  $data = $pdo->query("SELECT _hospital_quality_min_max_count.*, _hospital_quality_cats_weight.category_weight_pct from _hospital_quality_min_max_count, _hospital_quality_cats_weight  where _hospital_quality_min_max_count.location_state = 'GA' AND _hospital_quality_cats_weight.id = _hospital_quality_min_max_count.quality_category group by _hospital_quality_min_max_count.location_state, _hospital_quality_min_max_count.quality_category, _hospital_quality_min_max_count.measure_name")->fetchAll();
+  $data = $pdo->query("SELECT _hospital_quality_min_max_count.*, _hospital_quality_cats_weight.category_weight_pct from _hospital_quality_min_max_count, _hospital_quality_cats_weight, _hospital_quality_measures  where _hospital_quality_min_max_count.location_state = 'GA' AND _hospital_quality_cats_weight.id = _hospital_quality_min_max_count.quality_category AND _hospital_quality_measures.measure_name = _hospital_quality_min_max_count.measure_name group by _hospital_quality_min_max_count.location_state, _hospital_quality_min_max_count.quality_category, _hospital_quality_min_max_count.measure_name")->fetchAll();
     foreach($data as $d) {
       $factor = 0;
       $counter = 0;
@@ -37,7 +37,7 @@
         $index = 100 / $d['state_measure_count'];
 
        // echo '<br> THE INDEX IS: ' . $index;
-        $data2 = $pdo->query("SELECT score, hospital_name, provider_id from _hospital_quality_raw_scores where location_state = 'GA' AND measure_name = '" . $d['measure_name'] . "' and score_text != 'Not Available' order by score")
+        $data2 = $pdo->query("SELECT score, hospital_name, provider_id from _hospital_quality_raw_scores where location_state = 'GA' AND measure_name = '" . addslashes($d['measure_name']) . "' and score_text != 'Not Available' order by score")
           ->fetchAll();
         if ($data2) {
           $array_of_scores = array();
