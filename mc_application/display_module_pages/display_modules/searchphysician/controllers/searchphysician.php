@@ -443,9 +443,9 @@ class Searchphysician extends MX_Controller
 					}
 					$DoctorList['image']		= $DoctorImg;
 					$DoctorList['gender']		= $DisplayDoctor->Gender;
-//					$Languages 					= $DisplayDoctor->Languages;
-          $Languages = '';
-					if($Languages == '' || $Languages == '0')
+					$Languages 					    = trim($DisplayDoctor->Languages);
+//          $Languages = '';
+					if(trim($Languages == '') || trim($Languages == '0') || trim($Languages == 'NULL'))
 					{
 						$Languages = 'English';
 					}
