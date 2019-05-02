@@ -32,9 +32,34 @@ class Searchphysician_model  extends CI_Model
 /****
  *
  * the code below generates a random number for quality and efficiency --- just for demos
+ * Skipped categories 18 and 21 as per Mike 5/1/19
+ * Now does a distance search based on zip code...
  *
  ****/
-		$Query =	"SELECT p.id, p.`NPI`, p.`PAC ID`,  CONCAT(p.`First Name`, ' ', p.`Last Name`) as ProvName, p.`Gender`, p.`Credential`, CONCAT(p.`Line 1 Street Address`, ' ', p.City, ', ', p.State, ' ',  SUBSTR(p.`Zip Code`,1,5)) as Address	, p.`Phone Number` as Phone, p.`Organization legal name`, p.`Primary specialty` as PrimarySpecialty, p.`Secondary specialty 1`, p.`Secondary specialty 2`, p.`Credential` as Education, p.`Graduation year`, p.`Professional accepts Medicare Assignment` as Accepts_Medicare, p.`Reported Quality Measures`	 as PQRS, p.`Used electronic health records` as EHR,  p.`heart_health_initiative` as HHI, p.`Hospital affiliation CCN 1`, p.`Hospital affiliation LBN 1`,  p.`Hospital affiliation CCN 2`, p.`Hospital affiliation LBN 2`,  p.`Hospital affiliation CCN 3`, p.`Hospital affiliation LBN 3`,  p.`Hospital affiliation CCN 4`,  p.`Hospital affiliation LBN 4`,  p.`Hospital affiliation CCN 5`, p.`Hospital affiliation LBN 5`, FLOOR(RAND()*(10-6+1)+1) as Quality, FLOOR(RAND()*(10-6+1)+1) as Efficiency from _phys_compare_medicare_raw_april2019 p, mc_state_list where mc_state_list.id = ".$StateId." AND p.state = mc_state_list.short_name AND p.`Primary specialty` IN (select specialty from specialities_conditions where condition_".$ConditionId." = 'X') group by p.NPI order by Quality desc, Efficiency desc LIMIT ".$StartLimit.", ".$EndLimit;
+	$Query = "SELECT INTPTLAT, INTPTLONG from gaz_zcta_national where GEOID = ".$Zipcode;
+		$latlng 	= $this->db->query($Query);
+		$myzips = array();
+		$Result 	= $latlng->result();
+		if($Result) {
+			$okzipcodes = '';
+			foreach ($Result as $r) {
+				$lat = $r->INTPTLAT;
+				$lng = $r->INTPTLONG;
+				$Query = "SELECT SQRT(POW((69.1 * (gaz_zcta_national.INTPTLAT -  ".$lat." )) , 2 ) +
+			POW((53 * (gaz_zcta_national.INTPTLONG - ".$lng."   )), 2)) AS distance, GEOID as zip_code FROM gaz_zcta_national HAVING distance < ".$Mileage." ORDER BY distance ASC";
+				$okzips 	= $this->db->query($Query);
+				$Result 	= $okzips->result();
+				if($Result) {
+					foreach($Result as $r) {
+						$okzipcodes .=  "'".$r->zip_code.", '";
+						array_push($myzips, "'".$r->zip_code."'");
+
+					}
+				}
+			}
+		}
+		$okzipcodes = implode(', ', $myzips);
+		$Query =	"SELECT p.id, p.`NPI`, p.`PAC ID`,  CONCAT(p.`First Name`, ' ', p.`Last Name`) as ProvName, p.`Gender`, p.`Credential`, CONCAT(p.`Line 1 Street Address`, ' ', p.City, ', ', p.State, ' ',  SUBSTR(p.`Zip Code`,1,5)) as Address	, p.`Phone Number` as Phone, p.`Organization legal name`, p.`Primary specialty` as PrimarySpecialty, p.`Secondary specialty 1`, p.`Secondary specialty 2`, p.`Credential` as Education, p.`Graduation year`, p.`Professional accepts Medicare Assignment` as Accepts_Medicare, p.`Reported Quality Measures`	 as PQRS, p.`Used electronic health records` as EHR,  p.`heart_health_initiative` as HHI, p.`Hospital affiliation CCN 1`, p.`Hospital affiliation LBN 1`,  p.`Hospital affiliation CCN 2`, p.`Hospital affiliation LBN 2`,  p.`Hospital affiliation CCN 3`, p.`Hospital affiliation LBN 3`,  p.`Hospital affiliation CCN 4`,  p.`Hospital affiliation LBN 4`,  p.`Hospital affiliation CCN 5`, p.`Hospital affiliation LBN 5`, FLOOR(RAND()*(10-7+1)+1) as Quality, FLOOR(RAND()*(10-7+1)+1) as Efficiency, p.O_Languages as Languages from _phys_compare_medicare_raw_april2019 p  where SUBSTR(p.`Zip Code`, 1, 5) in (".$okzipcodes.") AND p.`Primary specialty` IN (select specialty from specialities_conditions where condition_".$ConditionId." = 'X') group by p.NPI order by Quality desc, Efficiency desc LIMIT ".$StartLimit.", ".$EndLimit;
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)
@@ -60,8 +85,9 @@ class Searchphysician_model  extends CI_Model
 	public function GetFirstCondition()
 	{
 		$Gender 	= $this->input->post('gender');
+		// now skipping signs, symptoms and abnormal results and
 		$Query 		= "SELECT id as CondNum, TRIM(condition_name) as `Condition` FROM ".GetLangLabel('Tbl_ConditionList')." WHERE 
-		         	   condition_name != '' AND Gender IN ('Both','".$Gender."') GROUP BY condition_name ORDER BY condition_name";
+		         	   condition_name != '' AND Gender IN ('Both','".$Gender."') AND id != 18 and id != 21 GROUP BY condition_name ORDER BY condition_name";
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)

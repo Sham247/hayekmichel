@@ -25,7 +25,7 @@
 
 // SELECT THe table with the min, max, avg and count for each state, for each quality measure.
 
-  $data = $pdo->query("SELECT _hospital_quality_min_max_count.*, _hospital_quality_cats_weight.category_weight_pct from _hospital_quality_min_max_count, _hospital_quality_cats_weight, _hospital_quality_measures  where _hospital_quality_min_max_count.location_state = 'GA' AND _hospital_quality_cats_weight.id = _hospital_quality_min_max_count.quality_category AND _hospital_quality_measures.measure_name = _hospital_quality_min_max_count.measure_name group by _hospital_quality_min_max_count.location_state, _hospital_quality_min_max_count.quality_category, _hospital_quality_min_max_count.measure_name")->fetchAll();
+  $data = $pdo->query("")->fetchAll();
     foreach($data as $d) {
       $factor = 0;
       $counter = 0;
@@ -50,6 +50,10 @@
           foreach ($data2 as $d2) {
             $counter++;
             $theItem = number_smaller($array_of_scores, $d2['score']);
+            $percentile = (intval($theItem * $index));
+            if($percentile == 100) {
+              $percentile = 99;
+            }
            // echo 'there are '.$theItem . 'values smaller than this' . (intval($theItem * $index)  + 1) .'<br>';
 //            array_filter($array_of_scores, function($n){
 //              $theItem =  $n <= $d2['score'];
@@ -62,12 +66,13 @@
               'provider_id' => $d2['provider_id'],
               'hospital_name' => $d2['hospital_name'],
               'measure_name' => $d['measure_name'],
+              'location_state' => $d['location_state'],
               'score' => $d2['score'],
-              'percentile' => (intval($theItem * $index)),
+              'percentile' => $percentile,
               'quality_category' => $d['quality_category'],
               'weighted_score' => ((intval($theItem * $index)) * (intval($d['category_weight_pct'])/100)),
             ];
-            $sqlc = "INSERT INTO _hospital_quality_results (provider_id, hospital_name, measure_name, score, percentile, quality_category, weighted_score) VALUES (:provider_id, :hospital_name, :measure_name, :score, :percentile, :quality_category, :weighted_score)";
+            $sqlc = "INSERT INTO _hospital_quality_results (provider_id, hospital_name, measure_name, location_state, score, percentile, quality_category, weighted_score) VALUES (:provider_id, :hospital_name, :measure_name, :location_state, :score, :percentile, :quality_category, :weighted_score)";
             $stmt = $pdo->prepare($sqlc);
            $stmt->execute($datac);
 //        //    echo 'INSERT SHOULD OCCUR HERE... ';
