@@ -33,7 +33,7 @@ class Searchphysician_model  extends CI_Model
  *
  * the code below generates a random number for quality and efficiency --- just for demos
  * Skipped categories 18 and 21 as per Mike 5/1/19
- * Now does a distance search based on zip code...
+ * Now does a distance search based on the lat and lng of zip codes..
  *
  ****/
 	$Query = "SELECT INTPTLAT, INTPTLONG from gaz_zcta_national where GEOID = ".$Zipcode;
