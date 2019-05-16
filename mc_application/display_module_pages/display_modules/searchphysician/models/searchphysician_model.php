@@ -33,7 +33,7 @@ class Searchphysician_model  extends CI_Model
  *
  * the code below generates a random number for quality and efficiency --- just for demos
  * Skipped categories 18 and 21 as per Mike 5/1/19
- * Now does a distance search based on zip code...
+ * Now does a distance search based on the lat and lng of zip codes..
  *
  ****/
 	$Query = "SELECT INTPTLAT, INTPTLONG from gaz_zcta_national where GEOID = ".$Zipcode;
@@ -59,7 +59,8 @@ class Searchphysician_model  extends CI_Model
 			}
 		}
 		$okzipcodes = implode(', ', $myzips);
-		$Query =	"SELECT p.id, p.`NPI`, p.`PAC ID`,  CONCAT(p.`First Name`, ' ', p.`Last Name`) as ProvName, p.`Gender`, p.`Credential`, CONCAT(p.`Line 1 Street Address`, ' ', p.City, ', ', p.State, ' ',  SUBSTR(p.`Zip Code`,1,5)) as Address	, p.`Phone Number` as Phone, p.`Organization legal name`, p.`Primary specialty` as PrimarySpecialty, p.`Secondary specialty 1`, p.`Secondary specialty 2`, p.`Credential` as Education, p.`Graduation year`, p.`Professional accepts Medicare Assignment` as Accepts_Medicare, p.`Reported Quality Measures`	 as PQRS, p.`Used electronic health records` as EHR,  p.`heart_health_initiative` as HHI, p.`Hospital affiliation CCN 1`, p.`Hospital affiliation LBN 1`,  p.`Hospital affiliation CCN 2`, p.`Hospital affiliation LBN 2`,  p.`Hospital affiliation CCN 3`, p.`Hospital affiliation LBN 3`,  p.`Hospital affiliation CCN 4`,  p.`Hospital affiliation LBN 4`,  p.`Hospital affiliation CCN 5`, p.`Hospital affiliation LBN 5`, FLOOR(RAND()*(10-7+1)+1) as Quality, FLOOR(RAND()*(10-7+1)+1) as Efficiency, p.O_Languages as Languages from _phys_compare_medicare_raw_april2019 p  where SUBSTR(p.`Zip Code`, 1, 5) in (".$okzipcodes.") AND p.`Primary specialty` IN (select specialty from specialities_conditions where condition_".$ConditionId." = 'X') group by p.NPI order by Quality desc, Efficiency desc LIMIT ".$StartLimit.", ".$EndLimit;
+		$Query =	"SELECT p.id, p.`NPI`, p.`PAC ID`,  CONCAT(p.`First Name`, ' ', p.`Last Name`) as ProvName, p.`Gender`, p.`Credential`, CONCAT(p.`Line 1 Street Address`, ' ', p.City, ', ', p.State, ' ',  SUBSTR(p.`Zip Code`,1,5)) as Address	, p.`Phone Number` as Phone, p.`Organization legal name`, p.`Primary specialty` as PrimarySpecialty, p.`Secondary specialty 1`, p.`Secondary specialty 2`, p.`Credential` as Education, p.`Graduation year`, p.`Professional accepts Medicare Assignment` as Accepts_Medicare, p.`Reported Quality Measures`	 as PQRS, p.`Used electronic health records` as EHR,  p.`heart_health_initiative` as HHI, p.`Hospital affiliation CCN 1`, p.`Hospital affiliation LBN 1`,  p.`Hospital affiliation CCN 2`, p.`Hospital affiliation LBN 2`,  p.`Hospital affiliation CCN 3`, p.`Hospital affiliation LBN 3`,  p.`Hospital affiliation CCN 4`,  p.`Hospital affiliation LBN 4`,  p.`Hospital affiliation CCN 5`, p.`Hospital affiliation LBN 5`, quality as Quality, quality_dec,  FLOOR(RAND()*(10-7+1)+1) as Efficiency, p.O_Languages as Languages from _phys_compare_medicare_raw_april2019 p  where SUBSTR(p.`Zip Code`, 1, 5) in (".$okzipcodes.") AND p.`Primary specialty` IN (select specialty from specialities_conditions where condition_".$ConditionId." = 'X') group by p.NPI order by quality_dec desc, Efficiency desc LIMIT ".$StartLimit.", ".$EndLimit;
+//echo $Query .'<hr>';
 		$Details 	= $this->db->query($Query);
 		$Result 	= $Details->result();
 		if(isset($Result) && count($Result)>0)
