@@ -90,37 +90,44 @@ if(isset($ComparedList) && count($ComparedList)>0)
 					<li class='bullet-item languages'>Languages <br><?php echo $Languages ?></li><?php  
 					$GetHospitalList		= $this->common_model->GetDoctorWorkedHospitals($DoctorNpi);
 					$TotalDisplayHospital	= 3;
-					$RemainingHospitalCount	= $TotalDisplayHospital-count($GetHospitalList);
-					if(count($GetHospitalList) > 0)
-					{
-						foreach($GetHospitalList as $DisplayHospital)
-						{?>
-							<li class='bullet-item hos_star'>
-								<i class='colorred icon-hospital'></i><?php 
-								if(trim($DisplayHospital['HospitalName']) != '')
-								{?>
-									<a href='javascript:;' class='display_hos_pro' hos-id='<?php echo $DisplayHospital['ProviderNumber']; ?>'>
-									<?php echo $DisplayHospital['HospitalName']; ?>
-									</a>
-									<br>
-									<center><img src='<?php echo ImageUrl("ratings/".$DisplayHospital['Star'].".png"); ?>' alt='Hospital rating' /></center><?php 
-								}
-								else
-								{
-									echo $DisplayHospital['NewHospitalName']; ?>
-									<br>
-									<center><img src='<?php echo ImageUrl("ratings/0.png"); ?>' alt='Hospital rating' /></center> <?php 
-								} ?>
-							</li><?php
-						}
+					if(isset($GetHospitalList)) {
+                      $RemainingHospitalCount = $TotalDisplayHospital - count($GetHospitalList);
+                      if (count($GetHospitalList) > 0)
+                        {
+						foreach ($GetHospitalList as $DisplayHospital) {
+                          ?>
+                            <li class='bullet-item hos_star'>
+                            <i class='colorred icon-hospital'></i><?php
+                          if (trim($DisplayHospital['HospitalName']) != '') {
+                            ?>
+                              <a href='javascript:;' class='display_hos_pro'
+                                 hos-id='<?php echo $DisplayHospital['ProviderNumber']; ?>'>
+                                <?php echo $DisplayHospital['HospitalName']; ?>
+                              </a>
+                              <br>
+                              <center><img
+                                      src='<?php echo ImageUrl("ratings/" . $DisplayHospital['Star'] . ".png"); ?>'
+                                      alt='Hospital rating'/></center><?php
+                          }
+                          else {
+                            echo $DisplayHospital['NewHospitalName']; ?>
+                              <br>
+                              <center><img
+                                          src='<?php echo ImageUrl("ratings/0.png"); ?>'
+                                          alt='Hospital rating'/></center> <?php
+                          } ?>
+                            </li><?php
+                        }
 					}
-					if($RemainingHospitalCount > 0)
-					{
-						for($StartLoop=0;$StartLoop<$RemainingHospitalCount;$StartLoop++) 
-						{?>
-							<li class='bullet-item hos_star'> - </li><?php
-						}
-					}?>
+					if ($RemainingHospitalCount > 0) {
+                      for ($StartLoop = 0; $StartLoop < $RemainingHospitalCount; $StartLoop++) {
+                        ?>
+                          <li class='bullet-item hos_star'> -</li><?php
+                      }
+
+                    }
+					}
+					?>
 					<li class='bullet-item'>
 						Quality <br> 
 						<img src='<?php echo ImageUrl("ratings/".$QualityImage); ?>' alt='Doctor Quality' />
