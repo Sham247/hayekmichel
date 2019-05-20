@@ -185,6 +185,8 @@ class Searchphysician extends MX_Controller
 		$Result['ThirdSpecialty']	= $this->spmodel->GetThirdSpecialty();
 		$this->load->view('DisplaySpecialtyList',$Result);
 	}
+
+
 	/* Method used to get searched list - created by Karthik K on 27 Oct, 2014 */
 	public function searchlist()
 	{
